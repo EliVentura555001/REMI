@@ -1,0 +1,43 @@
+# Archivos de usuario y configuración
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Carpetas de compilación
+bin/
+obj/
+
+# Archivos de depuración y publicación
+*.pdb
+*.log
+*.vspscc
+*.vssscc
+*.dbmdl
+*.cache
+*.zip
+*.exe
+*.dll
+
+# Carpeta de Visual Studio
+.vs/
+
+# Archivos de migración y EF
+Migrations/
+
+# Archivos de configuración local
+appsettings.Development.json
+
+# Archivos de paquetes
+packages/
+*.nupkg
+*.nuspec
+
+# Archivos generados por herramientas
+TestResults/
+*.coverage
+*.coveragexml
+
+# Archivos de sistema
+Thumbs.db
+Desktop.ini
