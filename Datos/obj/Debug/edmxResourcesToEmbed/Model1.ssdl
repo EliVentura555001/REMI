@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="remiModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="IdCategoria" />
+    </Key>
+    <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreCategoria" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="DescripcionCategoria" Type="varchar" MaxLength="128" Nullable="false" />
+    <Property Name="EstadoCategoria" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreCliente" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="TelefonoCliente" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CorreoCliente" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="DireccionCliente" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="EstadoCliente" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetallePedidoProducto">
+    <Key>
+      <PropertyRef Name="IdDetallePedidoProducto" />
+    </Key>
+    <Property Name="IdDetallePedidoProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdPedido" Type="int" Nullable="false" />
+    <Property Name="IdProducto" Type="int" Nullable="false" />
+    <Property Name="IdSubProducto" Type="int" Nullable="false" />
+    <Property Name="CostoParcial" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="CantidadPorciones" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetallePedidoSP">
+    <Key>
+      <PropertyRef Name="IdDetallePedidoSP" />
+    </Key>
+    <Property Name="IdDetallePedidoSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdPedido" Type="int" Nullable="false" />
+    <Property Name="IdSubProducto" Type="int" Nullable="false" />
+    <Property Name="IdSuministro" Type="int" Nullable="false" />
+    <Property Name="CantidadSuministroPSP" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="UnidadMedidaPSP" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="CostoParcialPSP" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetalleProducto">
+    <Key>
+      <PropertyRef Name="IdDetalleProducto" />
+    </Key>
+    <Property Name="IdDetalleProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdSubProducto" Type="int" Nullable="false" />
+    <Property Name="IdProducto" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetalleSubProducto">
+    <Key>
+      <PropertyRef Name="IdDetalleSubProducto" />
+    </Key>
+    <Property Name="IdDetalleSubProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdSubProducto" Type="int" Nullable="false" />
+    <Property Name="IdSuministro" Type="int" Nullable="false" />
+    <Property Name="CantidadSuministro" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="UnidadMedidaSP" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="CostoSuministro" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pedido">
+    <Key>
+      <PropertyRef Name="IdPedido" />
+    </Key>
+    <Property Name="IdPedido" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DescripcionPedido" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="FechaPedido" Type="datetime" Nullable="false" />
+    <Property Name="FechaModPedido" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreProducto" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="DescripcionProducto" Type="varchar" MaxLength="128" Nullable="false" />
+    <Property Name="CostoProducto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="PrecioProducto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="IdCategoria" Type="int" Nullable="false" />
+    <Property Name="EstadoProducto" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proveedores">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreProveedor" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="TelefonoProveedor" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CorreoProveedor" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="DireccionProveedor" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="EstadoProveedor" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="int" Nullable="false" />
+    <Property Name="NombreRol" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="EstadoRol" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubProducto">
+    <Key>
+      <PropertyRef Name="IdSubProducto" />
+    </Key>
+    <Property Name="IdSubProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreSubProducto" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DescripcionSubProducto" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="PrecioSubProducto" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="CostoSubProducto" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="EstadoSubProducto" Type="bit" Nullable="false" />
+    <Property Name="Instrucciones" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Suministros">
+    <Key>
+      <PropertyRef Name="IdSuministro" />
+    </Key>
+    <Property Name="IdSuministro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreSuministro" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="DescripcionSuministro" Type="varchar" MaxLength="128" Nullable="false" />
+    <Property Name="CostoSuministro" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="IdProveedor" Type="int" Nullable="false" />
+    <Property Name="EstadoSuministro" Type="bit" Nullable="false" />
+    <Property Name="Cantidad" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="UnidadMedida" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="ExistenciasSuministro" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="PresentacionSuministro" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="int" Nullable="false" />
+    <Property Name="NombreUsuario" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="IdRol" Type="int" Nullable="false" />
+    <Property Name="TelefonoUsuario" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="CorreoUsuario" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="EstadoUsuario" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Utensilios">
+    <Key>
+      <PropertyRef Name="IdUtensilio" />
+    </Key>
+    <Property Name="IdUtensilio" Type="int" Nullable="false" />
+    <Property Name="NombreUtensilio" Type="varchar" MaxLength="64" />
+    <Property Name="DescripcionUtensilio" Type="varchar" MaxLength="128" />
+    <Property Name="EstadoUtensilios" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__DetallePe__IdPed__4336F4B9">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+    <End Role="DetallePedidoProducto" Type="Self.DetallePedidoProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="IdPedido" />
+      </Principal>
+      <Dependent Role="DetallePedidoProducto">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Usuarios__IdRol__49C3F6B7">
+    <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoProducto_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="DetallePedidoProducto" Type="Self.DetallePedidoProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="DetallePedidoProducto">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoProducto_SubProducto">
+    <End Role="SubProducto" Type="Self.SubProducto" Multiplicity="1" />
+    <End Role="DetallePedidoProducto" Type="Self.DetallePedidoProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Principal>
+      <Dependent Role="DetallePedidoProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoSP_Pedido">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+    <End Role="DetallePedidoSP" Type="Self.DetallePedidoSP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="IdPedido" />
+      </Principal>
+      <Dependent Role="DetallePedidoSP">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoSP_SubProducto">
+    <End Role="SubProducto" Type="Self.SubProducto" Multiplicity="1" />
+    <End Role="DetallePedidoSP" Type="Self.DetallePedidoSP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Principal>
+      <Dependent Role="DetallePedidoSP">
+        <PropertyRef Name="IdSubProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleProducto_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="DetalleProducto" Type="Self.DetalleProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="DetalleProducto">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleProducto_SubProducto">
+    <End Role="SubProducto" Type="Self.SubProducto" Multiplicity="1" />
+    <End Role="DetalleProducto" Type="Self.DetalleProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Principal>
+      <Dependent Role="DetalleProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleSubProducto_SubProducto">
+    <End Role="SubProducto" Type="Self.SubProducto" Multiplicity="1" />
+    <End Role="DetalleSubProducto" Type="Self.DetalleSubProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Principal>
+      <Dependent Role="DetalleSubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleSubProducto_Suministros">
+    <End Role="Suministros" Type="Self.Suministros" Multiplicity="1" />
+    <End Role="DetalleSubProducto" Type="Self.DetalleSubProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suministros">
+        <PropertyRef Name="IdSuministro" />
+      </Principal>
+      <Dependent Role="DetalleSubProducto">
+        <PropertyRef Name="IdSuministro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Producto_Categorias">
+    <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="IdCategoria" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Suministros_Proveedores">
+    <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="1" />
+    <End Role="Suministros" Type="Self.Suministros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedores">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="Suministros">
+        <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="remiModelStoreContainer">
+    <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetallePedidoProducto" EntityType="Self.DetallePedidoProducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetallePedidoSP" EntityType="Self.DetallePedidoSP" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetalleProducto" EntityType="Self.DetalleProducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetalleSubProducto" EntityType="Self.DetalleSubProducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubProducto" EntityType="Self.SubProducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Suministros" EntityType="Self.Suministros" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Utensilios" EntityType="Self.Utensilios" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__DetallePe__IdPed__4336F4B9" Association="Self.FK__DetallePe__IdPed__4336F4B9">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="DetallePedidoProducto" EntitySet="DetallePedidoProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuarios__IdRol__49C3F6B7" Association="Self.FK__Usuarios__IdRol__49C3F6B7">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoProducto_Producto" Association="Self.FK_DetallePedidoProducto_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="DetallePedidoProducto" EntitySet="DetallePedidoProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoProducto_SubProducto" Association="Self.FK_DetallePedidoProducto_SubProducto">
+      <End Role="SubProducto" EntitySet="SubProducto" />
+      <End Role="DetallePedidoProducto" EntitySet="DetallePedidoProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoSP_Pedido" Association="Self.FK_DetallePedidoSP_Pedido">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="DetallePedidoSP" EntitySet="DetallePedidoSP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoSP_SubProducto" Association="Self.FK_DetallePedidoSP_SubProducto">
+      <End Role="SubProducto" EntitySet="SubProducto" />
+      <End Role="DetallePedidoSP" EntitySet="DetallePedidoSP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleProducto_Producto" Association="Self.FK_DetalleProducto_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="DetalleProducto" EntitySet="DetalleProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleProducto_SubProducto" Association="Self.FK_DetalleProducto_SubProducto">
+      <End Role="SubProducto" EntitySet="SubProducto" />
+      <End Role="DetalleProducto" EntitySet="DetalleProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleSubProducto_SubProducto" Association="Self.FK_DetalleSubProducto_SubProducto">
+      <End Role="SubProducto" EntitySet="SubProducto" />
+      <End Role="DetalleSubProducto" EntitySet="DetalleSubProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleSubProducto_Suministros" Association="Self.FK_DetalleSubProducto_Suministros">
+      <End Role="Suministros" EntitySet="Suministros" />
+      <End Role="DetalleSubProducto" EntitySet="DetalleSubProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Producto_Categorias" Association="Self.FK_Producto_Categorias">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Suministros_Proveedores" Association="Self.FK_Suministros_Proveedores">
+      <End Role="Proveedores" EntitySet="Proveedores" />
+      <End Role="Suministros" EntitySet="Suministros" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

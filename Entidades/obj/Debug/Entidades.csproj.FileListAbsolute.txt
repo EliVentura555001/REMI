@@ -1,0 +1,12 @@
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\bin\Debug\Entidades.dll.config
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\bin\Debug\Entidades.dll
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\bin\Debug\Entidades.pdb
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\bin\Debug\EntityFramework.dll
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\bin\Debug\EntityFramework.xml
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\obj\Debug\Entidades.csproj.AssemblyReference.cache
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\obj\Debug\Entidades.csproj.Up2Date
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\obj\Debug\Entidades.dll
+C:\Users\Microsoft Windows\source\repos\REMI\Entidades\obj\Debug\Entidades.pdb

@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="remiModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="remiEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(remiModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(remiModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="Categorias" EntityType="remiModel.Categorias" />
+    <EntitySet Name="Clientes" EntityType="remiModel.Clientes" />
+    <EntitySet Name="DetallePedidoProducto" EntityType="remiModel.DetallePedidoProducto" />
+    <EntitySet Name="DetallePedidoSP" EntityType="remiModel.DetallePedidoSP" />
+    <EntitySet Name="DetalleProducto" EntityType="remiModel.DetalleProducto" />
+    <EntitySet Name="DetalleSubProducto" EntityType="remiModel.DetalleSubProducto" />
+    <EntitySet Name="Pedido" EntityType="remiModel.Pedido" />
+    <EntitySet Name="Producto" EntityType="remiModel.Producto" />
+    <EntitySet Name="Proveedores" EntityType="remiModel.Proveedores" />
+    <EntitySet Name="Roles" EntityType="remiModel.Roles" />
+    <EntitySet Name="SubProducto" EntityType="remiModel.SubProducto" />
+    <EntitySet Name="Suministros" EntityType="remiModel.Suministros" />
+    <EntitySet Name="sysdiagrams" EntityType="remiModel.sysdiagrams" />
+    <EntitySet Name="Usuarios" EntityType="remiModel.Usuarios" />
+    <EntitySet Name="Utensilios" EntityType="remiModel.Utensilios" />
+    <AssociationSet Name="FK_Producto_Categorias" Association="remiModel.FK_Producto_Categorias">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DetallePe__IdPed__4336F4B9" Association="remiModel.FK__DetallePe__IdPed__4336F4B9">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="DetallePedidoProducto" EntitySet="DetallePedidoProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoProducto_Producto" Association="remiModel.FK_DetallePedidoProducto_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="DetallePedidoProducto" EntitySet="DetallePedidoProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoProducto_SubProducto" Association="remiModel.FK_DetallePedidoProducto_SubProducto">
+      <End Role="SubProducto" EntitySet="SubProducto" />
+      <End Role="DetallePedidoProducto" EntitySet="DetallePedidoProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoSP_Pedido" Association="remiModel.FK_DetallePedidoSP_Pedido">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="DetallePedidoSP" EntitySet="DetallePedidoSP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoSP_SubProducto" Association="remiModel.FK_DetallePedidoSP_SubProducto">
+      <End Role="SubProducto" EntitySet="SubProducto" />
+      <End Role="DetallePedidoSP" EntitySet="DetallePedidoSP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleProducto_Producto" Association="remiModel.FK_DetalleProducto_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="DetalleProducto" EntitySet="DetalleProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleProducto_SubProducto" Association="remiModel.FK_DetalleProducto_SubProducto">
+      <End Role="SubProducto" EntitySet="SubProducto" />
+      <End Role="DetalleProducto" EntitySet="DetalleProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleSubProducto_SubProducto" Association="remiModel.FK_DetalleSubProducto_SubProducto">
+      <End Role="SubProducto" EntitySet="SubProducto" />
+      <End Role="DetalleSubProducto" EntitySet="DetalleSubProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleSubProducto_Suministros" Association="remiModel.FK_DetalleSubProducto_Suministros">
+      <End Role="Suministros" EntitySet="Suministros" />
+      <End Role="DetalleSubProducto" EntitySet="DetalleSubProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Suministros_Proveedores" Association="remiModel.FK_Suministros_Proveedores">
+      <End Role="Proveedores" EntitySet="Proveedores" />
+      <End Role="Suministros" EntitySet="Suministros" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Usuarios__IdRol__49C3F6B7" Association="remiModel.FK__Usuarios__IdRol__49C3F6B7">
+      <End Role="Roles" EntitySet="Roles" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="IdCategoria" />
+    </Key>
+    <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreCategoria" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="DescripcionCategoria" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="EstadoCategoria" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="remiModel.FK_Producto_Categorias" FromRole="Categorias" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreCliente" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="TelefonoCliente" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CorreoCliente" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="DireccionCliente" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EstadoCliente" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetallePedidoProducto">
+    <Key>
+      <PropertyRef Name="IdDetallePedidoProducto" />
+    </Key>
+    <Property Name="IdDetallePedidoProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdPedido" Type="Int32" Nullable="false" />
+    <Property Name="IdProducto" Type="Int32" Nullable="false" />
+    <Property Name="IdSubProducto" Type="Int32" Nullable="false" />
+    <Property Name="CostoParcial" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="CantidadPorciones" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Pedido" Relationship="remiModel.FK__DetallePe__IdPed__4336F4B9" FromRole="DetallePedidoProducto" ToRole="Pedido" />
+    <NavigationProperty Name="Producto" Relationship="remiModel.FK_DetallePedidoProducto_Producto" FromRole="DetallePedidoProducto" ToRole="Producto" />
+    <NavigationProperty Name="SubProducto" Relationship="remiModel.FK_DetallePedidoProducto_SubProducto" FromRole="DetallePedidoProducto" ToRole="SubProducto" />
+  </EntityType>
+  <EntityType Name="DetallePedidoSP">
+    <Key>
+      <PropertyRef Name="IdDetallePedidoSP" />
+    </Key>
+    <Property Name="IdDetallePedidoSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdPedido" Type="Int32" Nullable="false" />
+    <Property Name="IdSubProducto" Type="Int32" Nullable="false" />
+    <Property Name="IdSuministro" Type="Int32" Nullable="false" />
+    <Property Name="CantidadSuministroPSP" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="UnidadMedidaPSP" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="CostoParcialPSP" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <NavigationProperty Name="Pedido" Relationship="remiModel.FK_DetallePedidoSP_Pedido" FromRole="DetallePedidoSP" ToRole="Pedido" />
+    <NavigationProperty Name="SubProducto" Relationship="remiModel.FK_DetallePedidoSP_SubProducto" FromRole="DetallePedidoSP" ToRole="SubProducto" />
+  </EntityType>
+  <EntityType Name="DetalleProducto">
+    <Key>
+      <PropertyRef Name="IdDetalleProducto" />
+    </Key>
+    <Property Name="IdDetalleProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdSubProducto" Type="Int32" Nullable="false" />
+    <Property Name="IdProducto" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="remiModel.FK_DetalleProducto_Producto" FromRole="DetalleProducto" ToRole="Producto" />
+    <NavigationProperty Name="SubProducto" Relationship="remiModel.FK_DetalleProducto_SubProducto" FromRole="DetalleProducto" ToRole="SubProducto" />
+  </EntityType>
+  <EntityType Name="DetalleSubProducto">
+    <Key>
+      <PropertyRef Name="IdDetalleSubProducto" />
+    </Key>
+    <Property Name="IdDetalleSubProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdSubProducto" Type="Int32" Nullable="false" />
+    <Property Name="IdSuministro" Type="Int32" Nullable="false" />
+    <Property Name="CantidadSuministro" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="UnidadMedidaSP" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="CostoSuministro" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <NavigationProperty Name="SubProducto" Relationship="remiModel.FK_DetalleSubProducto_SubProducto" FromRole="DetalleSubProducto" ToRole="SubProducto" />
+    <NavigationProperty Name="Suministros" Relationship="remiModel.FK_DetalleSubProducto_Suministros" FromRole="DetalleSubProducto" ToRole="Suministros" />
+  </EntityType>
+  <EntityType Name="Pedido">
+    <Key>
+      <PropertyRef Name="IdPedido" />
+    </Key>
+    <Property Name="IdPedido" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DescripcionPedido" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="FechaPedido" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FechaModPedido" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="DetallePedidoProducto" Relationship="remiModel.FK__DetallePe__IdPed__4336F4B9" FromRole="Pedido" ToRole="DetallePedidoProducto" />
+    <NavigationProperty Name="DetallePedidoSP" Relationship="remiModel.FK_DetallePedidoSP_Pedido" FromRole="Pedido" ToRole="DetallePedidoSP" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreProducto" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="DescripcionProducto" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="CostoProducto" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="PrecioProducto" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="IdCategoria" Type="Int32" Nullable="false" />
+    <Property Name="EstadoProducto" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Categorias" Relationship="remiModel.FK_Producto_Categorias" FromRole="Producto" ToRole="Categorias" />
+    <NavigationProperty Name="DetallePedidoProducto" Relationship="remiModel.FK_DetallePedidoProducto_Producto" FromRole="Producto" ToRole="DetallePedidoProducto" />
+    <NavigationProperty Name="DetalleProducto" Relationship="remiModel.FK_DetalleProducto_Producto" FromRole="Producto" ToRole="DetalleProducto" />
+  </EntityType>
+  <EntityType Name="Proveedores">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreProveedor" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="TelefonoProveedor" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CorreoProveedor" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="DireccionProveedor" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EstadoProveedor" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Suministros" Relationship="remiModel.FK_Suministros_Proveedores" FromRole="Proveedores" ToRole="Suministros" />
+  </EntityType>
+  <EntityType Name="Roles">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" />
+    <Property Name="NombreRol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EstadoRol" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Usuarios" Relationship="remiModel.FK__Usuarios__IdRol__49C3F6B7" FromRole="Roles" ToRole="Usuarios" />
+  </EntityType>
+  <EntityType Name="SubProducto">
+    <Key>
+      <PropertyRef Name="IdSubProducto" />
+    </Key>
+    <Property Name="IdSubProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreSubProducto" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DescripcionSubProducto" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="PrecioSubProducto" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="CostoSubProducto" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="EstadoSubProducto" Type="Boolean" Nullable="false" />
+    <Property Name="Instrucciones" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DetallePedidoProducto" Relationship="remiModel.FK_DetallePedidoProducto_SubProducto" FromRole="SubProducto" ToRole="DetallePedidoProducto" />
+    <NavigationProperty Name="DetallePedidoSP" Relationship="remiModel.FK_DetallePedidoSP_SubProducto" FromRole="SubProducto" ToRole="DetallePedidoSP" />
+    <NavigationProperty Name="DetalleProducto" Relationship="remiModel.FK_DetalleProducto_SubProducto" FromRole="SubProducto" ToRole="DetalleProducto" />
+    <NavigationProperty Name="DetalleSubProducto" Relationship="remiModel.FK_DetalleSubProducto_SubProducto" FromRole="SubProducto" ToRole="DetalleSubProducto" />
+  </EntityType>
+  <EntityType Name="Suministros">
+    <Key>
+      <PropertyRef Name="IdSuministro" />
+    </Key>
+    <Property Name="IdSuministro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NombreSuministro" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="DescripcionSuministro" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="CostoSuministro" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" />
+    <Property Name="EstadoSuministro" Type="Boolean" Nullable="false" />
+    <Property Name="Cantidad" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="UnidadMedida" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="ExistenciasSuministro" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="PresentacionSuministro" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <NavigationProperty Name="DetalleSubProducto" Relationship="remiModel.FK_DetalleSubProducto_Suministros" FromRole="Suministros" ToRole="DetalleSubProducto" />
+    <NavigationProperty Name="Proveedores" Relationship="remiModel.FK_Suministros_Proveedores" FromRole="Suministros" ToRole="Proveedores" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="NombreUsuario" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="IdRol" Type="Int32" Nullable="false" />
+    <Property Name="TelefonoUsuario" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CorreoUsuario" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="EstadoUsuario" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Roles" Relationship="remiModel.FK__Usuarios__IdRol__49C3F6B7" FromRole="Usuarios" ToRole="Roles" />
+  </EntityType>
+  <EntityType Name="Utensilios">
+    <Key>
+      <PropertyRef Name="IdUtensilio" />
+    </Key>
+    <Property Name="IdUtensilio" Type="Int32" Nullable="false" />
+    <Property Name="NombreUtensilio" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="DescripcionUtensilio" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+    <Property Name="EstadoUtensilios" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Producto_Categorias">
+    <End Type="remiModel.Categorias" Role="Categorias" Multiplicity="1" />
+    <End Type="remiModel.Producto" Role="Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="IdCategoria" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DetallePe__IdPed__4336F4B9">
+    <End Type="remiModel.Pedido" Role="Pedido" Multiplicity="1" />
+    <End Type="remiModel.DetallePedidoProducto" Role="DetallePedidoProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="IdPedido" />
+      </Principal>
+      <Dependent Role="DetallePedidoProducto">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoProducto_Producto">
+    <End Type="remiModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="remiModel.DetallePedidoProducto" Role="DetallePedidoProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="DetallePedidoProducto">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoProducto_SubProducto">
+    <End Type="remiModel.SubProducto" Role="SubProducto" Multiplicity="1" />
+    <End Type="remiModel.DetallePedidoProducto" Role="DetallePedidoProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Principal>
+      <Dependent Role="DetallePedidoProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoSP_Pedido">
+    <End Type="remiModel.Pedido" Role="Pedido" Multiplicity="1" />
+    <End Type="remiModel.DetallePedidoSP" Role="DetallePedidoSP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="IdPedido" />
+      </Principal>
+      <Dependent Role="DetallePedidoSP">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoSP_SubProducto">
+    <End Type="remiModel.SubProducto" Role="SubProducto" Multiplicity="1" />
+    <End Type="remiModel.DetallePedidoSP" Role="DetallePedidoSP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Principal>
+      <Dependent Role="DetallePedidoSP">
+        <PropertyRef Name="IdSubProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleProducto_Producto">
+    <End Type="remiModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="remiModel.DetalleProducto" Role="DetalleProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="DetalleProducto">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleProducto_SubProducto">
+    <End Type="remiModel.SubProducto" Role="SubProducto" Multiplicity="1" />
+    <End Type="remiModel.DetalleProducto" Role="DetalleProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Principal>
+      <Dependent Role="DetalleProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleSubProducto_SubProducto">
+    <End Type="remiModel.SubProducto" Role="SubProducto" Multiplicity="1" />
+    <End Type="remiModel.DetalleSubProducto" Role="DetalleSubProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Principal>
+      <Dependent Role="DetalleSubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleSubProducto_Suministros">
+    <End Type="remiModel.Suministros" Role="Suministros" Multiplicity="1" />
+    <End Type="remiModel.DetalleSubProducto" Role="DetalleSubProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suministros">
+        <PropertyRef Name="IdSuministro" />
+      </Principal>
+      <Dependent Role="DetalleSubProducto">
+        <PropertyRef Name="IdSuministro" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Suministros_Proveedores">
+    <End Type="remiModel.Proveedores" Role="Proveedores" Multiplicity="1" />
+    <End Type="remiModel.Suministros" Role="Suministros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedores">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="Suministros">
+        <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Usuarios__IdRol__49C3F6B7">
+    <End Type="remiModel.Roles" Role="Roles" Multiplicity="1" />
+    <End Type="remiModel.Usuarios" Role="Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roles">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
