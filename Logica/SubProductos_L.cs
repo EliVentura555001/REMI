@@ -237,6 +237,7 @@ namespace Logica
                         IdDetalleSubProducto = dsp.IdDetalleSubProducto,
                         IdSubProducto = dsp.IdSubProducto,
                         IdSuministro = dsp.IdSuministro,
+                        NombreSubProducto = dsp.SubProducto.NombreSubProducto,
                         NombreSuministros = dsp.Suministros.NombreSuministro,
                         CantidadSuministro = dsp.CantidadSuministro,
                         UnidadMedidaSP = dsp.UnidadMedidaSP,

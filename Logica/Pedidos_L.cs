@@ -10,7 +10,7 @@ namespace Logica
 {
     public class Pedidos_L
     {
-        public bool Actualizar(Pedidos_E actualizarProducto, ref string mensajeError)
+        public bool Actualizar(Pedidos_E actualizarPedido, ref string mensajeError)
         {
             using (var db = new remiEntities())
             {
@@ -18,23 +18,23 @@ namespace Logica
                 {
                     try
                     {
-                        Pedido NuevoPedido = new Pedido()
+                        Pedido PedidoActualizado = new Pedido()
                         {
-                            DescripcionPedido = actualizarProducto.DescripcionPedido,
-                            FechaPedido = DateTime.Now
+                            IdPedido = actualizarPedido.IdPedido,
+                            DescripcionPedido = actualizarPedido.DescripcionPedido,
+                            FechaModPedido = DateTime.Now
                         };
-                        db.Pedido.Add(NuevoPedido);
                         db.SaveChanges();
 
-                        if (actualizarProducto.DetallePedido == null || !actualizarProducto.DetallePedido.Any())
+                        if (actualizarPedido.DetallePedido == null || !actualizarPedido.DetallePedido.Any())
                         {
                             mensajeError = "No hay detalles para guardar.";
                             trans.Rollback();
                             return false;
                         }
 
-                        // Guardar detalles de productos
-                        foreach (var detalle in actualizarProducto.DetallePedido)
+                        // Actualizar detalles de productos
+                        foreach (var detalle in actualizarPedido.DetallePedido)
                         {
                             if (detalle.IdSubProducto == 0)
                             {
@@ -43,32 +43,70 @@ namespace Logica
                                 return false;
                             }
 
-                            DetallePedidoProducto nuevoDetalle = new DetallePedidoProducto()
+                            DetallePedidoProducto DetallePedidoActual = new DetallePedidoProducto()
                             {
-                                IdPedido = NuevoPedido.IdPedido,
+                                IdDetallePedidoProducto = detalle.IdDetalleProducto,
+                                IdPedido = PedidoActualizado.IdPedido,
                                 IdProducto = detalle.IdProducto,
                                 IdSubProducto = detalle.IdSubProducto,
                                 CantidadPorciones = detalle.CantidadPorciones,
                                 CostoParcial = detalle.CostoSubProducto
                             };
-                            db.DetallePedidoProducto.Add(nuevoDetalle);
                         }
 
-                        // Guardar detalles de suministros (ingredientes)
-                        if (actualizarProducto.DetallePedidoSP != null && actualizarProducto.DetallePedidoSP.Any())
+                        // Actualizar detalles de suministros (ingredientes)
+                        if (actualizarPedido.DetallePedidoSP != null && actualizarPedido.DetallePedidoSP.Any())
                         {
-                            foreach (var detalleSP in actualizarProducto.DetallePedidoSP)
+                            foreach (var detalleSP in actualizarPedido.DetallePedidoSP)
                             {
-                                DetallePedidoSP nuevoDetalleSP = new DetallePedidoSP()
+                                // Buscar el detalle original en la base de datos
+                                var detalleOriginal = db.DetallePedidoSP
+                                    .FirstOrDefault(d => d.IdDetallePedidoSP == detalleSP.IdDetalleSubProducto);
+
+                                decimal cantidadAnterior = detalleOriginal != null ? detalleOriginal.CantidadSuministroPSP : 0;
+                                decimal cantidadNueva = detalleSP.CantidadSuministro;
+
+                                // Solo si la cantidad ha cambiado
+                                if (cantidadAnterior != cantidadNueva)
                                 {
-                                    IdPedido = NuevoPedido.IdPedido,
-                                    IdSubProducto = detalleSP.IdSubProducto,
-                                    IdSuministro = detalleSP.IdSuministro,
-                                    CantidadSuministroPSP = detalleSP.CantidadSuministro,
-                                    UnidadMedidaPSP = detalleSP.UnidadMedidaSP,
-                                    CostoParcialPSP = detalleSP.CostoSuministro
-                                };
-                                db.DetallePedidoSP.Add(nuevoDetalleSP);
+                                    decimal diferencia = cantidadNueva - cantidadAnterior;
+                                    // Si la diferencia es positiva, se resta existencias (se usó más suministro)
+                                    // Si la diferencia es negativa, se suma existencias (se usó menos suministro)
+                                    if (!new Suministros_L().RestarExistencia(detalleSP.IdSuministro, diferencia, db, ref mensajeError))
+                                    {
+                                        trans.Rollback();
+                                        return false;
+                                    }
+                                }
+
+                                // Actualiza el detalle en la base de datos si es necesario
+                                if (detalleOriginal != null)
+                                {
+                                    detalleOriginal.CantidadSuministroPSP = cantidadNueva;
+                                    detalleOriginal.UnidadMedidaPSP = detalleSP.UnidadMedidaSP;
+                                    detalleOriginal.CostoParcialPSP = detalleSP.CostoSuministro;
+                                }
+                                else
+                                {
+                                    // Si es un nuevo detalle, lo agregas
+                                    DetallePedidoSP nuevoDetalleSP = new DetallePedidoSP()
+                                    {
+                                        IdPedido = PedidoActualizado.IdPedido,
+                                        IdSubProducto = detalleSP.IdSubProducto,
+                                        IdSuministro = detalleSP.IdSuministro,
+                                        CantidadSuministroPSP = cantidadNueva,
+                                        UnidadMedidaPSP = detalleSP.UnidadMedidaSP,
+                                        CostoParcialPSP = detalleSP.CostoSuministro
+                                    };
+                                    db.DetallePedidoSP.Add(nuevoDetalleSP);
+
+                                    // Ejecuta RestarExistencia para el nuevo detalle
+                                    if (!new Suministros_L().RestarExistencia(detalleSP.IdSuministro, cantidadNueva, db, ref mensajeError))
+                                    {
+                                        trans.Rollback();
+                                        return false;
+                                    }
+                                }
                             }
                         }
 
@@ -186,32 +224,48 @@ namespace Logica
                 return Productos;
             }
         }
-        public List<Productos_E> ListarProductos()
+        public List<Pedidos_E> ListarPedidos()
         {
             using (var db = new remiEntities())
             {
-                List<Productos_E> Productos = new List<Productos_E>();
-                Productos = db.Producto.Select(s => new Productos_E
+                List<Pedidos_E> pedidos = new List<Pedidos_E>();
+                pedidos = db.Pedido.Select(s => new Pedidos_E
                 {
-                    IdProducto = s.IdProducto,
-                    NombreProducto = s.NombreProducto,
-                    DescripcionProducto = s.DescripcionProducto,
-                    CostoProducto = s.CostoProducto,
-                    PrecioProducto = s.PrecioProducto,
-                    IdCategoria = s.IdProducto,
-                    NombreCategoria = s.Categorias.NombreCategoria,
-                    DetalleProducto = s.DetalleProducto
+                    IdPedido = s.IdPedido,
+                    DescripcionPedido = s.DescripcionPedido,
+                    FechaPedido = s.FechaPedido,
+                    FechaModPedido = s.FechaModPedido,
+                    NombreProducto = s.DetallePedidoProducto.Select(d => d.Producto.NombreProducto).FirstOrDefault(),
+                    DetallePedido = s.DetallePedidoProducto
                         .Select(d => new DetalleProducto_E
                         {
-                            IdDetalleProducto = d.IdDetalleProducto,
-                            IdSubProducto = d.IdSubProducto,
+                            IdDetalleProducto = d.IdDetallePedidoProducto,
                             IdProducto = d.IdProducto,
+                            IdSubProducto = d.IdSubProducto,
+                            NombreProducto = d.Producto.NombreProducto,
                             NombreSubProducto = d.SubProducto.NombreSubProducto,
+                            CantidadPorciones = d.CantidadPorciones,
+                            CostoSubProducto = d.CostoParcial,
                         })
                         .ToList(),
-                    EstadoProducto = s.EstadoProducto
+                    DetallePedidoSP = s.DetallePedidoSP
+                        .Select(d => new DetalleSubProducto_E
+                        {
+                            IdDetalleSubProducto = d.IdDetallePedidoSP,
+                            IdSubProducto = d.IdSubProducto,
+                            IdSuministro = d.IdSuministro,
+                            CantidadSuministro = d.CantidadSuministroPSP,
+                            UnidadMedidaSP = d.UnidadMedidaPSP,
+                            CostoSuministro = d.CostoParcialPSP,
+                            NombreSuministros = db.Suministros
+                                .Where(su => su.IdSuministro == d.IdSuministro)
+                                .Select(su => su.NombreSuministro)
+                                .FirstOrDefault(),
+                            NombreSubProducto = d.SubProducto.NombreSubProducto
+                        })
+                        .ToList()
                 }).ToList();
-                return Productos;
+                return pedidos;
             }
         }
     }

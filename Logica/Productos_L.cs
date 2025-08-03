@@ -208,6 +208,7 @@ namespace Logica
                             IdDetalleProducto = d.IdDetalleProducto,
                             IdSubProducto = d.IdSubProducto,
                             IdProducto = d.IdProducto,
+                            NombreProducto = s.NombreProducto,
                             NombreSubProducto = d.SubProducto.NombreSubProducto,
                             CostoSubProducto = d.SubProducto.CostoSubProducto,
                             PrecioSubProducto = d.SubProducto.PrecioSubProducto,

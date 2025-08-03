@@ -15,5 +15,6 @@ namespace Entidades
         public string UnidadMedidaSP { get; set; }
         public decimal CostoSuministro { get; set; }
         public string NombreSuministros { get; set; }
+        public string NombreSubProducto { get; set; }
     }
 }

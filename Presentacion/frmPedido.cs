@@ -16,6 +16,8 @@ namespace Presentacion
     {
         bool banderaModificar = false;
         string mensajeError = string.Empty;
+        private Pedidos_E pedidoSeleccionado; // Variable para almacenar el pedido actual
+
         public frmPedido()
         {
             InitializeComponent();
@@ -25,11 +27,12 @@ namespace Presentacion
             txtDPedido.Enabled = false;
             cbxProducto.Enabled = false;
             nudCProducto.Enabled = false;
-            dtpPedido.Enabled = false;
             btnNuevo.Enabled = true;
             btnModificar.Enabled = false;
             btnProcesar.Enabled = false;
             btnCancelar.Enabled = false;
+            btnProducto.Enabled = false;
+            dgvPedido.Enabled = false;
             txtDPedido.Clear();
             nudCProducto.Value = 0;
             cbxProducto.SelectedIndex = -1;
@@ -59,6 +62,40 @@ namespace Presentacion
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void CargarPedidoCreado()
+        {
+            dgvPedidoCreado.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            if (dgvPedidoCreado.Columns.Count == 0)
+            {
+                DataGridViewTextBoxColumn colIdPedido = new DataGridViewTextBoxColumn();
+                colIdPedido.HeaderText = "IdPedido";
+                colIdPedido.Name = "IdPedido";
+                colIdPedido.Visible = false;
+                dgvPedidoCreado.Columns.Add(colIdPedido);
+                dgvPedidoCreado.Columns.Add("Descripcion", "Descripción");
+                dgvPedidoCreado.Columns.Add("Fecha", "Fecha de Creación");
+                if (dgvPedidoCreado.Columns["FechaModPedido"] != null)
+                {
+                    dgvPedidoCreado.Columns.Add("FechaModPedido", "Fecha de Modificación");
+                }
+            }
+            dgvPedidoCreado.Rows.Clear();
+
+            DateTime fechaSeleccionada = dtpPedido.Value.Date;
+            List<Pedidos_E> pedidos = new Pedidos_L().ListarPedidos()
+                .Where(p => p.FechaPedido.Date == fechaSeleccionada)
+                .ToList();
+
+            foreach (var pedido in pedidos)
+            {
+                dgvPedidoCreado.Rows.Add(
+                    pedido.IdPedido,
+                    pedido.DescripcionPedido,
+                    pedido.FechaPedido.ToString("dd/MM/yyyy"),
+                    pedido.FechaModPedido.HasValue ? pedido.FechaModPedido.Value.ToString("dd/MM/yyyy") : string.Empty);
+            }
+            dgvPedido.Rows.Clear(); // Limpiar el DataGridView de pedidos al cargar nuevos pedidos
+        }
         public void CargarComboBox()
         {
             try
@@ -80,6 +117,8 @@ namespace Presentacion
         {
             CargarComboBox();
             CargarGrid();
+            CargarPedidoCreado();
+            dtpPedido.ValueChanged += dtpPedido_ValueChanged;
         }
         private void btnProducto_Click(object sender, EventArgs e)
         {
@@ -114,6 +153,7 @@ namespace Presentacion
             txtDPedido.Enabled = true;
             cbxProducto.Enabled = true;
             nudCProducto.Enabled = true;
+            dgvPedido.Enabled = true;
             btnNuevo.Enabled = false;
             btnModificar.Enabled = false;
             btnProcesar.Enabled = true;
@@ -143,13 +183,24 @@ namespace Presentacion
                 DescripcionPedido = txtDPedido.Text.Trim()
                 // Agrega otras propiedades si es necesario
             };
-            var frmDetalle = new frmDetallePedido(listaDetalles, pedido);
+            var frmDetalle = new frmDetallePedido(listaDetalles, pedido, banderaModificar);
             frmDetalle.ShowDialog();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            
+            //HABILITAR BANDERA MODIFICAR
+            banderaModificar = true;
+            //ACTIVAR CONTROLES
+            txtDPedido.Enabled = true;
+            nudCProducto.Enabled = true;
+            cbxProducto.Enabled = true;
+            dgvPedido.Enabled = true;
+            btnNuevo.Enabled = false;
+            btnModificar.Enabled = false;
+            btnProcesar.Enabled = true;
+            btnProducto.Enabled = true;
+            btnCancelar.Enabled = true;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -157,5 +208,61 @@ namespace Presentacion
             Limpiar();
         }
 
+        private void dtpPedido_ValueChanged(object sender, EventArgs e)
+        {
+            CargarPedidoCreado();
+        }
+
+        private void dgvPedidoCreado_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var productos = new List<DetalleProducto_E>();
+            if (e.RowIndex >= 0)
+            {
+                int idPedido = Convert.ToInt32(dgvPedidoCreado.Rows[e.RowIndex].Cells["IdPedido"].Value);
+                pedidoSeleccionado = new Pedidos_L().ListarPedidos().FirstOrDefault(p => p.IdPedido == idPedido);
+
+                if (pedidoSeleccionado != null)
+                {
+                    txtDPedido.Text = pedidoSeleccionado.DescripcionPedido;
+                    dtpPedido.Value = pedidoSeleccionado.FechaPedido;
+                    // Si tienes otros controles, asígnalos aquí
+                    // Puedes cargar los productos en dgvPedido si lo deseas
+                    dgvPedido.Rows.Clear();
+                    foreach (var detalle in pedidoSeleccionado.DetallePedido)
+                    {
+                        productos.Add(new DetalleProducto_E()
+                        {
+                            IdProducto = detalle.IdProducto,
+                            NombreProducto = detalle.NombreProducto,
+                            CantidadPorciones = detalle.CantidadPorciones
+                        });
+                    }
+                }
+            }
+            // Agrupa por IdSubProducto y NombreSuministros
+            var productosAgrupados = productos
+                .GroupBy(i => new { i.IdProducto, i.NombreProducto })
+                .Select(g => new
+                {
+                    IdProducto = g.First().IdProducto,
+                    NombreProducto = g.Key.NombreProducto,
+                    CantidadPorciones = g.First().CantidadPorciones
+                });
+
+            // Agrega al grid
+            foreach (var ing in productosAgrupados)
+            {
+                dgvPedido.Rows.Add(
+                    ing.IdProducto,
+                    ing.NombreProducto,
+                    ing.CantidadPorciones
+                );
+            }
+
+            // Habilita el botón Modificar
+            btnModificar.Enabled = true;
+           btnCancelar.Enabled = true;
+            btnNuevo.Enabled = false;
+        }
     }
 }
