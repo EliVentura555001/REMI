@@ -22,7 +22,6 @@ namespace Logica
                         Productodb.NombreProducto = actualizarProducto.NombreProducto;
                         Productodb.DescripcionProducto = actualizarProducto.DescripcionProducto;
                         Productodb.CostoProducto = actualizarProducto.CostoProducto;
-                        Productodb.PrecioProducto = actualizarProducto.PrecioProducto;
                         Productodb.IdCategoria = actualizarProducto.IdCategoria;
                         Productodb.EstadoProducto = actualizarProducto.EstadoProducto;
                         db.SaveChanges();
@@ -35,7 +34,7 @@ namespace Logica
                         }
 
                         // 1. Ids de suministros seleccionados
-                        var idsSeleccionados = actualizarProducto.DetalleProducto.Select(d => d.IdDetalleProducto).ToList();
+                        var idsSeleccionados = actualizarProducto.DetalleProducto.Select(d => d.IdProducto).ToList();
 
                         // 2. Detalles actuales en BD
                         var detallesBD = db.DetalleProducto
@@ -45,7 +44,7 @@ namespace Logica
                         // 3. Eliminar los que ya no están seleccionados
                         foreach (var detalle in detallesBD)
                         {
-                            if (!idsSeleccionados.Contains(detalle.IdDetalleProducto))
+                            if (!idsSeleccionados.Contains(detalle.IdProducto))
                             {
                                 db.DetalleProducto.Remove(detalle);
                             }
@@ -61,7 +60,7 @@ namespace Logica
                                 return false;
                             }
 
-                            var detalleBD = detallesBD.FirstOrDefault(d => d.IdDetalleProducto == detalle.IdDetalleProducto);
+                            var detalleBD = detallesBD.FirstOrDefault(d => d.IdProducto == detalle.IdProducto);
                             if (detalleBD != null)
                             {
                                 // Actualizar el detalle existente
@@ -74,6 +73,9 @@ namespace Logica
                                 {
                                     IdProducto = actualizarProducto.IdProducto,
                                     IdSubProducto = detalle.IdSubProducto,
+                                    CostoSubProducto = detalle.CostoSubProducto,
+                                    CantidadPorcionesP = detalle.CantidadPorcionesP
+
                                 };
                                 db.DetalleProducto.Add(nuevoDetalle);
                             }
@@ -106,7 +108,6 @@ namespace Logica
                             NombreProducto = datosNuevoProducto.NombreProducto,
                             DescripcionProducto = datosNuevoProducto.DescripcionProducto,
                             CostoProducto = datosNuevoProducto.CostoProducto,
-                            PrecioProducto = datosNuevoProducto.PrecioProducto,
                             IdCategoria = datosNuevoProducto.IdCategoria,
                             EstadoProducto = datosNuevoProducto.EstadoProducto
                         };
@@ -133,6 +134,8 @@ namespace Logica
                             {
                                 IdProducto = NuevoProducto.IdProducto,
                                 IdSubProducto = detalle.IdSubProducto,
+                                CostoSubProducto = detalle.CostoSubProducto,
+                                CantidadPorcionesP = detalle.CantidadPorcionesP
                             };
                             db.DetalleProducto.Add(nuevoDetalle);
                             db.SaveChanges();
@@ -161,7 +164,6 @@ namespace Logica
                     NombreProducto = s.NombreProducto,
                     DescripcionProducto = s.DescripcionProducto,
                     CostoProducto = s.CostoProducto,
-                    PrecioProducto = s.PrecioProducto,
                     IdCategoria = s.IdCategoria,
                 }).ToList();
                 return Productos;
@@ -178,16 +180,16 @@ namespace Logica
                     NombreProducto = s.NombreProducto,
                     DescripcionProducto = s.DescripcionProducto,
                     CostoProducto = s.CostoProducto,
-                    PrecioProducto = s.PrecioProducto,
                     IdCategoria = s.IdProducto,
                     NombreCategoria = s.Categorias.NombreCategoria,
                     DetalleProducto = s.DetalleProducto
                         .Select(d => new DetalleProducto_E
                         {
-                            IdDetalleProducto = d.IdDetalleProducto,
                             IdSubProducto = d.IdSubProducto,
                             IdProducto = d.IdProducto,
                             NombreSubProducto = d.SubProducto.NombreSubProducto,
+                            CostoSubProducto = d.CostoSubProducto,
+                            CantidadPorcionesP = d.CantidadPorcionesP
                         })
                         .ToList(),
                     EstadoProducto = s.EstadoProducto
@@ -205,13 +207,12 @@ namespace Logica
                     DetalleProducto = s.DetalleProducto
                         .Select(d => new DetalleProducto_E
                         {
-                            IdDetalleProducto = d.IdDetalleProducto,
                             IdSubProducto = d.IdSubProducto,
                             IdProducto = d.IdProducto,
                             NombreProducto = s.NombreProducto,
                             NombreSubProducto = d.SubProducto.NombreSubProducto,
-                            CostoSubProducto = d.SubProducto.CostoSubProducto,
-                            PrecioSubProducto = d.SubProducto.PrecioSubProducto,
+                            CostoSubProducto = d.CostoSubProducto,
+                            CantidadPorcionesP =d.CantidadPorcionesP
                         }).ToList()
                 }).ToList();
                 return dProductos;

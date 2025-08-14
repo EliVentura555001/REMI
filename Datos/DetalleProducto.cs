@@ -14,9 +14,10 @@ namespace Datos
     
     public partial class DetalleProducto
     {
-        public int IdDetalleProducto { get; set; }
         public int IdSubProducto { get; set; }
         public int IdProducto { get; set; }
+        public int CantidadPorcionesP { get; set; }
+        public decimal CostoSubProducto { get; set; }
     
         public virtual Producto Producto { get; set; }
         public virtual SubProducto SubProducto { get; set; }

@@ -53,10 +53,12 @@
   <ItemGroup>
     <Compile Include="Categorias_E.cs" />
     <Compile Include="Clientes_E.cs" />
-    <Compile Include="DetallePedidoProducto_E.cs" />
+    <Compile Include="DetalleOrden_E.cs" />
+    <Compile Include="DetallePedidoP_E.cs" />
     <Compile Include="DetallePedidoSP_E.cs" />
     <Compile Include="DetalleProducto_E.cs" />
     <Compile Include="DetalleSubProducto_E.cs" />
+    <Compile Include="Ordenes_E.cs" />
     <Compile Include="Pedidos_E.cs" />
     <Compile Include="Productos_E.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -22,9 +22,8 @@ namespace Logica
                         SubProducto SubProductodb = db.SubProducto.Find(actualizarSubProducto.IdSubProducto);
                         SubProductodb.NombreSubProducto = actualizarSubProducto.NombreSubProducto;
                         SubProductodb.DescripcionSubProducto = actualizarSubProducto.DescripcionSubProducto;
-                        SubProductodb.CostoSubProducto = actualizarSubProducto.CostoSubProducto;
-                        SubProductodb.PrecioSubProducto = actualizarSubProducto.PrecioSubProducto;
                         SubProductodb.Instrucciones = actualizarSubProducto.Instrucciones;
+                        SubProductodb.CostoSubProducto = actualizarSubProducto.CostoSubProducto;
                         SubProductodb.EstadoSubProducto = actualizarSubProducto.EstadoSubProducto;
                         db.SaveChanges();
 
@@ -36,7 +35,7 @@ namespace Logica
                         }
 
                         // 1. Ids de suministros seleccionados
-                        var idsSeleccionados = actualizarSubProducto.DetalleSubProducto.Select(d => d.IdDetalleSubProducto).ToList();
+                        var idsSeleccionados = actualizarSubProducto.DetalleSubProducto.Select(d => d.IdSubProducto).ToList();
 
                         // 2. Detalles actuales en BD
                         var detallesBD = db.DetalleSubProducto
@@ -46,7 +45,7 @@ namespace Logica
                         // 3. Eliminar los que ya no están seleccionados
                         foreach (var detalle in detallesBD)
                         {
-                            if (!idsSeleccionados.Contains(detalle.IdDetalleSubProducto))
+                            if (!idsSeleccionados.Contains(detalle.IdSubProducto))
                             {
                                 db.DetalleSubProducto.Remove(detalle);
                             }
@@ -62,13 +61,13 @@ namespace Logica
                                 return false;
                             }
 
-                            var detalleBD = detallesBD.FirstOrDefault(d => d.IdDetalleSubProducto == detalle.IdDetalleSubProducto);
+                            var detalleBD = detallesBD.FirstOrDefault(d => d.IdSubProducto == detalle.IdSubProducto);
                             if (detalleBD != null)
                             {
                                 // Actualizar el detalle existente
+                                detalleBD.IdSubProducto = detalle.IdSubProducto;
                                 detalleBD.IdSuministro = detalle.IdSuministro;
                                 detalleBD.CantidadSuministro = detalle.CantidadSuministro;
-                                detalleBD.UnidadMedidaSP = detalle.UnidadMedidaSP;
                                 detalleBD.CostoSuministro = detalle.CostoSuministro; 
                             }
                             else
@@ -79,7 +78,6 @@ namespace Logica
                                     IdSubProducto = actualizarSubProducto.IdSubProducto,
                                     IdSuministro = detalle.IdSuministro,
                                     CantidadSuministro = detalle.CantidadSuministro,
-                                    UnidadMedidaSP = detalle.UnidadMedidaSP,
                                     CostoSuministro = detalle.CostoSuministro 
                                 };
                                 db.DetalleSubProducto.Add(nuevoDetalle);
@@ -112,9 +110,8 @@ namespace Logica
                         {
                             NombreSubProducto = datosNuevoSubProducto.NombreSubProducto,
                             DescripcionSubProducto = datosNuevoSubProducto.DescripcionSubProducto,
-                            CostoSubProducto = datosNuevoSubProducto.CostoSubProducto,
-                            PrecioSubProducto = datosNuevoSubProducto.PrecioSubProducto,
                             Instrucciones = datosNuevoSubProducto.Instrucciones,
+                            CostoSubProducto = datosNuevoSubProducto.CostoSubProducto,
                             EstadoSubProducto = datosNuevoSubProducto.EstadoSubProducto
                         };
                         db.SubProducto.Add(NuevoSubProducto);
@@ -141,7 +138,6 @@ namespace Logica
                                 IdSubProducto = NuevoSubProducto.IdSubProducto,
                                 IdSuministro = detalle.IdSuministro,
                                 CantidadSuministro = detalle.CantidadSuministro,
-                                UnidadMedidaSP = detalle.UnidadMedidaSP,
                                 CostoSuministro = detalle.CostoSuministro
                             };
                             db.DetalleSubProducto.Add(nuevoDetalle);
@@ -170,9 +166,8 @@ namespace Logica
                     IdSubProducto = s.IdSubProducto,
                     NombreSubProducto = s.NombreSubProducto,
                     DescripcionSubProducto = s.DescripcionSubProducto,
-                    CostoSubProducto = s.CostoSubProducto,
-                    PrecioSubProducto = s.PrecioSubProducto,
                     Instrucciones = s.Instrucciones,
+                    CostoSubProducto = s.CostoSubProducto,
                 }).ToList();
                 return subProductos;
             }
@@ -187,18 +182,15 @@ namespace Logica
                     IdSubProducto = s.IdSubProducto,
                     NombreSubProducto = s.NombreSubProducto,
                     DescripcionSubProducto = s.DescripcionSubProducto,
-                    CostoSubProducto = s.CostoSubProducto,
-                    PrecioSubProducto = s.PrecioSubProducto,
                     Instrucciones = s.Instrucciones,
+                    CostoSubProducto = s.CostoSubProducto,
                     DetalleSubProducto = s.DetalleSubProducto
                         .Select(d => new DetalleSubProducto_E
                         {
-                            IdDetalleSubProducto = d.IdDetalleSubProducto,
                             IdSubProducto = d.IdSubProducto,
                             IdSuministro = d.IdSuministro,
                             NombreSuministros = d.Suministros.NombreSuministro,
                             CantidadSuministro = d.CantidadSuministro,
-                            UnidadMedidaSP = d.UnidadMedidaSP,
                             CostoSuministro = d.CostoSuministro
                         })
                         .ToList(),
@@ -207,25 +199,25 @@ namespace Logica
                 return subProductos;
             }
         }
-        public List<SubProductos_E> ListarSubProductosPorProducto(int idProducto)
-        {
-            using (var db = new remiEntities())
-            {
-                var subProductos = db.DetalleProducto
-                    .Where(dp => dp.IdProducto == idProducto)
-                    .Select(dp => dp.SubProducto)
-                    .Distinct()
-                    .Select(sp => new SubProductos_E
-                    {
-                        IdSubProducto = sp.IdSubProducto,
-                        NombreSubProducto = sp.NombreSubProducto,
-                        CostoSubProducto = sp.CostoSubProducto,
-                    })
-                    .ToList();
+        //public List<SubProductos_E> ListarSubProductosPorProducto(int idProducto)
+        //{
+        //    using (var db = new remiEntities())
+        //    {
+        //        var subProductos = db.DetalleProducto
+        //            .Where(dp => dp.IdProducto == idProducto)
+        //            .Select(dp => dp.SubProducto)
+        //            .Distinct()
+        //            .Select(sp => new SubProductos_E
+        //            {
+        //                IdSubProducto = sp.IdSubProducto,
+        //                NombreSubProducto = sp.NombreSubProducto,
+        //                CostoSubProducto = sp.CostoSubProducto,
+        //            })
+        //            .ToList();
 
-                return subProductos;
-            }
-        }
+        //        return subProductos;
+        //    }
+        //}
         public List<DetalleSubProducto_E> ObtenerDetallesDeSubProducto(int idSubProducto)
         {
             using (var db = new remiEntities())
@@ -234,13 +226,11 @@ namespace Logica
                     .Where(dsp => dsp.IdSubProducto == idSubProducto)
                     .Select(dsp => new DetalleSubProducto_E
                     {
-                        IdDetalleSubProducto = dsp.IdDetalleSubProducto,
                         IdSubProducto = dsp.IdSubProducto,
                         IdSuministro = dsp.IdSuministro,
                         NombreSubProducto = dsp.SubProducto.NombreSubProducto,
                         NombreSuministros = dsp.Suministros.NombreSuministro,
                         CantidadSuministro = dsp.CantidadSuministro,
-                        UnidadMedidaSP = dsp.UnidadMedidaSP,
                         CostoSuministro = dsp.CostoSuministro
 
                     })

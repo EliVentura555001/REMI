@@ -24,6 +24,7 @@ namespace Presentacion
         {
             txtNProducto.Enabled = false;
             txtDProducto.Enabled = false;
+            txtCantidadSP.Enabled = false;
             cbxCategoria.Enabled = false;
             cbxDetalleSP.Enabled = false;
             cbProducto.Enabled = false;
@@ -54,6 +55,7 @@ namespace Presentacion
                 cbxDetalleSP.DataSource = subProductosactivos;
                 cbxDetalleSP.DisplayMember = "NombreSubProducto";
                 cbxDetalleSP.ValueMember = "IdSubProducto";
+                cbxDetalleSP.SelectedValue = "CostoSubProducto";
 
                 //CARGAR CATEGORIAS ACTIVAS
                 List<Categorias_E> categorias = new List<Categorias_E>();
@@ -85,7 +87,6 @@ namespace Presentacion
                 dgvProducto.Columns["NombreProducto"].HeaderText = "Nombre";
                 dgvProducto.Columns["DescripcionProducto"].HeaderText = "Descripcion";
                 dgvProducto.Columns["CostoProducto"].HeaderText = "Costo";
-                dgvProducto.Columns["PrecioProducto"].HeaderText = "Precio";
                 dgvProducto.Columns["NombreCategoria"].HeaderText = "Categoria";
                 // Agrega columna para los subproductos
                 if (!dgvProducto.Columns.Contains("SubProductos"))
@@ -123,14 +124,6 @@ namespace Presentacion
             try
             {
                 dgvSubProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                if (!dgvSubProductos.Columns.Contains("IdDetalleProducto"))
-                {
-                    DataGridViewTextBoxColumn colIdDetalleP = new DataGridViewTextBoxColumn();
-                    colIdDetalleP.HeaderText = "IdDetalleProducto";
-                    colIdDetalleP.Name = "IdDetalleProducto";
-                    colIdDetalleP.Visible = false;
-                    dgvSubProductos.Columns.Add(colIdDetalleP);
-                }
                 if (!dgvSubProductos.Columns.Contains("IdSubProducto"))
                 {
                     DataGridViewTextBoxColumn colIdSP = new DataGridViewTextBoxColumn();
@@ -140,6 +133,10 @@ namespace Presentacion
                     dgvSubProductos.Columns.Add(colIdSP);
                 }
                 dgvSubProductos.Columns.Add("SubProductos", "Contenido");
+                dgvSubProductos.Columns.Add("CantidadSubproducto", "Cantidad");
+                dgvSubProductos.Columns.Add("CostoSubProducto", "Costo");
+
+                dgvSubProductos.Columns["CostoSubProducto"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -157,6 +154,7 @@ namespace Presentacion
         {
             txtNProducto.Enabled = true;
             txtDProducto.Enabled = true;
+            txtCantidadSP.Enabled = true;
             cbxDetalleSP.Enabled = true;
             cbxCategoria.Enabled = true;
             cbProducto.Enabled = true;
@@ -189,9 +187,10 @@ namespace Presentacion
                     {
                         var detalle = new DetalleProducto_E()
                         {
-                            IdDetalleProducto = Convert.ToInt32(row.Cells["IdDetalleProducto"].Value),
-                            IdSubProducto = Convert.ToInt32(row.Cells[1].Value),
-                            NombreSubProducto = row.Cells[2].Value?.ToString(),
+                            IdSubProducto = Convert.ToInt32(row.Cells[0].Value),
+                            NombreSubProducto = row.Cells[1].Value?.ToString(),
+                            CantidadPorcionesP = Convert.ToInt32(row.Cells[2].Value?.ToString()),
+                            CostoSubProducto = Convert.ToDecimal(row.Cells[3].Value?.ToString())
                         };
                         detalles.Add(detalle);
                     }
@@ -204,7 +203,6 @@ namespace Presentacion
                     NombreProducto = txtNProducto.Text.Trim(),
                     DescripcionProducto = txtDProducto.Text.Trim(),
                     CostoProducto = Convert.ToDecimal(txtCProducto.Text.Trim()),
-                    PrecioProducto = Convert.ToDecimal(txtPProducto.Text.Trim()),
                     IdCategoria = Convert.ToInt32(cbxCategoria.SelectedValue),
                     EstadoProducto = cbProducto.Checked,
                     DetalleProducto = detalles // ← Aquí agregas la lista
@@ -247,6 +245,7 @@ namespace Presentacion
             //ACTIVAR CONTROLES
             txtNProducto.Enabled = true;
             txtDProducto.Enabled = true;
+            txtCantidadSP.Enabled = true;
             cbxCategoria.Enabled = true;
             cbxDetalleSP.Enabled = true;
             dgvSubProductos.Enabled = true;
@@ -271,24 +270,27 @@ namespace Presentacion
                 MessageBox.Show("Seleccione un subproducto.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // Obtener valores
-            DetalleProducto_E datosFormulario = new DetalleProducto_E()
+            else if(txtCantidadSP.Text.Trim().Length == 0)
             {
-                IdDetalleProducto = Convert.ToInt32(cbxDetalleSP.Tag),
-                IdSubProducto = Convert.ToInt32(cbxDetalleSP.SelectedValue),
-                NombreSubProducto = cbxDetalleSP.Text.Trim(),
-            };
+                MessageBox.Show("Ingrese una cantidad.", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var subproductoSeleccionado = cbxDetalleSP.SelectedItem as SubProductos_E;
+            int cantidad = Convert.ToInt32(txtCantidadSP.Text.Trim());
+            decimal costoTotal = subproductoSeleccionado.CostoSubProducto * cantidad;
+
             // Agregar al DataGridView
             dgvSubProductos.Rows.Add(
-                    datosFormulario.IdDetalleProducto,
-                    datosFormulario.IdSubProducto,
-                    datosFormulario.NombreSubProducto);
+                subproductoSeleccionado.IdSubProducto,
+                subproductoSeleccionado.NombreSubProducto,
+                cantidad,
+                costoTotal // Columna CostoSubProducto
+            );
 
-            // Calcular el total general de suministros
             ActualizarCostoTotal();
-            // Limpiar selección y entrada
             cbxDetalleSP.SelectedIndex = -1;
+            txtCantidadSP.Clear();
         }
 
         private void dgvProducto_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -303,8 +305,7 @@ namespace Presentacion
             txtNProducto.Tag = Producto.IdProducto;
             txtNProducto.Text = Producto.NombreProducto;
             txtDProducto.Text = Producto.DescripcionProducto;
-            txtCProducto.Text = Producto.CostoProducto.ToString();
-            txtPProducto.Text = Producto.PrecioProducto.ToString();
+            txtCProducto.Text = Producto.CostoProducto.ToString("F2");
             cbxCategoria.SelectedValue = Producto.IdCategoria;
             cbProducto.Checked = Producto.EstadoProducto;
 
@@ -314,11 +315,11 @@ namespace Presentacion
             // 4. Carga los detalles al DataGridView
             foreach (var detalle in Producto.DetalleProducto)
             {
-                dgvSubProductos.Rows.Add(
-                    detalle.IdDetalleProducto, // Asume que esta columna es para el IdDetalleSubProducto
+                dgvSubProductos.Rows.Add( // Asume que esta columna es para el IdDetalleSubProducto
                     detalle.IdSubProducto,
-                    detalle.NombreSubProducto
-                );
+                    detalle.NombreSubProducto,
+                    detalle.CantidadPorcionesP,
+                    detalle.CostoSubProducto.ToString("F2"));
             }
 
             // 5. Habilita los botones necesarios
@@ -330,32 +331,35 @@ namespace Presentacion
         private void ActualizarCostoTotal()
         {
             decimal totalCosto = 0;
-            decimal totalPrecio = 0;
 
             foreach (DataGridViewRow row in dgvSubProductos.Rows)
             {
                 if (!row.IsNewRow)
                 {
                     int idSubProducto = Convert.ToInt32(row.Cells["IdSubProducto"].Value);
-
+                    int cantidad = Convert.ToInt32(row.Cells["CantidadSubproducto"].Value);
                     var subproducto = new SubProductos_L().ListarSubProductosActivos()
                         .FirstOrDefault(s => s.IdSubProducto == idSubProducto);
 
                     if (subproducto != null)
                     {
-                        totalCosto += subproducto.CostoSubProducto;
-                        totalPrecio += subproducto.PrecioSubProducto;
+                        totalCosto += subproducto.CostoSubProducto * cantidad;
                     }
                 }
             }
 
             txtCProducto.Text = totalCosto.ToString("F2");
-            txtPProducto.Text = totalPrecio.ToString("F2");
+            txtPProducto.Text = (totalCosto * 1.2m).ToString("F2");
         }
 
         private void dgvSubProductos_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
         {
             // Calcular el total general de suministros al eliminar una fila
+            ActualizarCostoTotal();
+        }
+
+        private void dgvSubProductos_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
             ActualizarCostoTotal();
         }
     }

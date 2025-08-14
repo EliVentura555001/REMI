@@ -47,37 +47,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="DetallePedidoProducto">
-      <EntityTypeMapping TypeName="remiModel.DetallePedidoProducto">
-        <MappingFragment StoreEntitySet="DetallePedidoProducto">
+    <EntitySetMapping Name="DetalleOrden">
+      <EntityTypeMapping TypeName="remiModel.DetalleOrden">
+        <MappingFragment StoreEntitySet="DetalleOrden">
+          <ScalarProperty Name="PrecioOrden" ColumnName="PrecioOrden" />
           <ScalarProperty Name="CantidadPorciones" ColumnName="CantidadPorciones" />
-          <ScalarProperty Name="CostoParcial" ColumnName="CostoParcial" />
-          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
-          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
-          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
-          <ScalarProperty Name="IdDetallePedidoProducto" ColumnName="IdDetallePedidoProducto" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="DetallePedidoSP">
-      <EntityTypeMapping TypeName="remiModel.DetallePedidoSP">
-        <MappingFragment StoreEntitySet="DetallePedidoSP">
-          <ScalarProperty Name="CostoParcialPSP" ColumnName="CostoParcialPSP" />
-          <ScalarProperty Name="UnidadMedidaPSP" ColumnName="UnidadMedidaPSP" />
-          <ScalarProperty Name="CantidadSuministroPSP" ColumnName="CantidadSuministroPSP" />
-          <ScalarProperty Name="IdSuministro" ColumnName="IdSuministro" />
-          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
-          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
-          <ScalarProperty Name="IdDetallePedidoSP" ColumnName="IdDetallePedidoSP" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="DetalleProducto">
-      <EntityTypeMapping TypeName="remiModel.DetalleProducto">
-        <MappingFragment StoreEntitySet="DetalleProducto">
           <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
           <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
-          <ScalarProperty Name="IdDetalleProducto" ColumnName="IdDetalleProducto" />
+          <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
+          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -85,11 +63,19 @@
       <EntityTypeMapping TypeName="remiModel.DetalleSubProducto">
         <MappingFragment StoreEntitySet="DetalleSubProducto">
           <ScalarProperty Name="CostoSuministro" ColumnName="CostoSuministro" />
-          <ScalarProperty Name="UnidadMedidaSP" ColumnName="UnidadMedidaSP" />
           <ScalarProperty Name="CantidadSuministro" ColumnName="CantidadSuministro" />
           <ScalarProperty Name="IdSuministro" ColumnName="IdSuministro" />
           <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
-          <ScalarProperty Name="IdDetalleSubProducto" ColumnName="IdDetalleSubProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ordenes">
+      <EntityTypeMapping TypeName="remiModel.Ordenes">
+        <MappingFragment StoreEntitySet="Ordenes">
+          <ScalarProperty Name="FechaModOrden" ColumnName="FechaModOrden" />
+          <ScalarProperty Name="FechaCreacionOrden" ColumnName="FechaCreacionOrden" />
+          <ScalarProperty Name="DescripcionOrden" ColumnName="DescripcionOrden" />
+          <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -100,19 +86,6 @@
           <ScalarProperty Name="FechaPedido" ColumnName="FechaPedido" />
           <ScalarProperty Name="DescripcionPedido" ColumnName="DescripcionPedido" />
           <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Producto">
-      <EntityTypeMapping TypeName="remiModel.Producto">
-        <MappingFragment StoreEntitySet="Producto">
-          <ScalarProperty Name="EstadoProducto" ColumnName="EstadoProducto" />
-          <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
-          <ScalarProperty Name="PrecioProducto" ColumnName="PrecioProducto" />
-          <ScalarProperty Name="CostoProducto" ColumnName="CostoProducto" />
-          <ScalarProperty Name="DescripcionProducto" ColumnName="DescripcionProducto" />
-          <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
-          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -134,19 +107,6 @@
           <ScalarProperty Name="EstadoRol" ColumnName="EstadoRol" />
           <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
           <ScalarProperty Name="IdRol" ColumnName="IdRol" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="SubProducto">
-      <EntityTypeMapping TypeName="remiModel.SubProducto">
-        <MappingFragment StoreEntitySet="SubProducto">
-          <ScalarProperty Name="Instrucciones" ColumnName="Instrucciones" />
-          <ScalarProperty Name="EstadoSubProducto" ColumnName="EstadoSubProducto" />
-          <ScalarProperty Name="CostoSubProducto" ColumnName="CostoSubProducto" />
-          <ScalarProperty Name="PrecioSubProducto" ColumnName="PrecioSubProducto" />
-          <ScalarProperty Name="DescripcionSubProducto" ColumnName="DescripcionSubProducto" />
-          <ScalarProperty Name="NombreSubProducto" ColumnName="NombreSubProducto" />
-          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -196,6 +156,62 @@
           <ScalarProperty Name="DescripcionUtensilio" ColumnName="DescripcionUtensilio" />
           <ScalarProperty Name="NombreUtensilio" ColumnName="NombreUtensilio" />
           <ScalarProperty Name="IdUtensilio" ColumnName="IdUtensilio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubProducto">
+      <EntityTypeMapping TypeName="remiModel.SubProducto">
+        <MappingFragment StoreEntitySet="SubProducto">
+          <ScalarProperty Name="EstadoSubProducto" ColumnName="EstadoSubProducto" />
+          <ScalarProperty Name="CostoSubProducto" ColumnName="CostoSubProducto" />
+          <ScalarProperty Name="Instrucciones" ColumnName="Instrucciones" />
+          <ScalarProperty Name="DescripcionSubProducto" ColumnName="DescripcionSubProducto" />
+          <ScalarProperty Name="NombreSubProducto" ColumnName="NombreSubProducto" />
+          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="remiModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="EstadoProducto" ColumnName="EstadoProducto" />
+          <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+          <ScalarProperty Name="CostoProducto" ColumnName="CostoProducto" />
+          <ScalarProperty Name="DescripcionProducto" ColumnName="DescripcionProducto" />
+          <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleProducto">
+      <EntityTypeMapping TypeName="remiModel.DetalleProducto">
+        <MappingFragment StoreEntitySet="DetalleProducto">
+          <ScalarProperty Name="CostoSubProducto" ColumnName="CostoSubProducto" />
+          <ScalarProperty Name="CantidadPorcionesP" ColumnName="CantidadPorcionesP" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetallePedidoP">
+      <EntityTypeMapping TypeName="remiModel.DetallePedidoP">
+        <MappingFragment StoreEntitySet="DetallePedidoP">
+          <ScalarProperty Name="CostoSubProducto" ColumnName="CostoSubProducto" />
+          <ScalarProperty Name="CantidadPorciones" ColumnName="CantidadPorciones" />
+          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetallePedidoSP">
+      <EntityTypeMapping TypeName="remiModel.DetallePedidoSP">
+        <MappingFragment StoreEntitySet="DetallePedidoSP">
+          <ScalarProperty Name="CostoParcialPSP" ColumnName="CostoParcialPSP" />
+          <ScalarProperty Name="CantidadSuministroPSP" ColumnName="CantidadSuministroPSP" />
+          <ScalarProperty Name="IdSuministro" ColumnName="IdSuministro" />
+          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
+          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

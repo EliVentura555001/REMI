@@ -59,7 +59,10 @@
     <Compile Include="Clientes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="DetallePedidoProducto.cs">
+    <Compile Include="DetalleOrden.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DetallePedidoP.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DetallePedidoSP.cs">
@@ -85,6 +88,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Ordenes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Pedido.cs">
       <DependentUpon>Model1.tt</DependentUpon>

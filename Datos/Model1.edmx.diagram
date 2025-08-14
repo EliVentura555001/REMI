@@ -5,33 +5,40 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5a81ba01321947fd8828977c7c095ad7" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="remiModel.Categorias" Width="1.5" PointX="1.5" PointY="10.625" />
-        <EntityTypeShape EntityType="remiModel.Clientes" Width="1.5" PointX="8.75" PointY="4.75" />
-        <EntityTypeShape EntityType="remiModel.DetallePedidoProducto" Width="1.5" PointX="3" PointY="6.25" />
-        <EntityTypeShape EntityType="remiModel.DetallePedidoSP" Width="1.5" PointX="3" PointY="2.25" />
-        <EntityTypeShape EntityType="remiModel.DetalleProducto" Width="1.5" PointX="6" PointY="3.625" />
-        <EntityTypeShape EntityType="remiModel.DetalleSubProducto" Width="1.5" PointX="6" PointY="6.25" />
-        <EntityTypeShape EntityType="remiModel.Pedido" Width="1.5" PointX="0.75" PointY="2.5" />
-        <EntityTypeShape EntityType="remiModel.Producto" Width="1.5" PointX="3.75" PointY="10.125" />
-        <EntityTypeShape EntityType="remiModel.Proveedores" Width="1.5" PointX="1.5" PointY="15.375" />
-        <EntityTypeShape EntityType="remiModel.Roles" Width="1.5" PointX="8.75" PointY="1.25" />
-        <EntityTypeShape EntityType="remiModel.SubProducto" Width="1.5" PointX="0.75" PointY="6" />
-        <EntityTypeShape EntityType="remiModel.Suministros" Width="1.5" PointX="3.75" PointY="14.875" />
-        <EntityTypeShape EntityType="remiModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" />
-        <EntityTypeShape EntityType="remiModel.Usuarios" Width="1.5" PointX="11" PointY="1" />
-        <EntityTypeShape EntityType="remiModel.Utensilios" Width="1.5" PointX="8.75" PointY="7.75" />
-        <AssociationConnector Association="remiModel.FK_Producto_Categorias" />
-        <AssociationConnector Association="remiModel.FK__DetallePe__IdPed__4336F4B9" />
-        <AssociationConnector Association="remiModel.FK_DetallePedidoProducto_Producto" />
-        <AssociationConnector Association="remiModel.FK_DetallePedidoProducto_SubProducto" />
-        <AssociationConnector Association="remiModel.FK_DetallePedidoSP_Pedido" />
-        <AssociationConnector Association="remiModel.FK_DetallePedidoSP_SubProducto" />
-        <AssociationConnector Association="remiModel.FK_DetalleProducto_Producto" />
-        <AssociationConnector Association="remiModel.FK_DetalleProducto_SubProducto" />
-        <AssociationConnector Association="remiModel.FK_DetalleSubProducto_SubProducto" />
+        <EntityTypeShape EntityType="remiModel.Categorias" Width="1.5" PointX="1.375" PointY="14.25" />
+        <EntityTypeShape EntityType="remiModel.Clientes" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="remiModel.DetalleOrden" Width="1.5" PointX="3" PointY="4" />
+        <EntityTypeShape EntityType="remiModel.DetalleSubProducto" Width="1.5" PointX="6" PointY="8.375" />
+        <EntityTypeShape EntityType="remiModel.Ordenes" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="remiModel.Pedido" Width="1.5" PointX="0.75" PointY="12" />
+        <EntityTypeShape EntityType="remiModel.Proveedores" Width="1.5" PointX="1.375" PointY="17.625" />
+        <EntityTypeShape EntityType="remiModel.Roles" Width="1.5" PointX="8.75" PointY="3.25" />
+        <EntityTypeShape EntityType="remiModel.Suministros" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="remiModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="2.75" />
+        <EntityTypeShape EntityType="remiModel.Usuarios" Width="1.5" PointX="11" PointY="3" />
+        <EntityTypeShape EntityType="remiModel.Utensilios" Width="1.5" PointX="8.75" PointY="9.75" />
+        <AssociationConnector Association="remiModel.FK_DetalleOrden_Ordenes" />
+        <AssociationConnector Association="remiModel.FK_DetalleOrden_Pedido" />
         <AssociationConnector Association="remiModel.FK_DetalleSubProducto_Suministros" />
         <AssociationConnector Association="remiModel.FK_Suministros_Proveedores" />
         <AssociationConnector Association="remiModel.FK__Usuarios__IdRol__49C3F6B7" />
+        <EntityTypeShape EntityType="remiModel.SubProducto" Width="1.5" PointX="0.75" PointY="8" />
+        <AssociationConnector Association="remiModel.FK_DetalleOrden_SubProducto" />
+        <AssociationConnector Association="remiModel.FK_DetalleSubProducto_SubProducto" />
+        <EntityTypeShape EntityType="remiModel.Producto" Width="1.5" PointX="3.625" PointY="13.875" />
+        <AssociationConnector Association="remiModel.FK_Producto_Categorias" />
+        <AssociationConnector Association="remiModel.FK_DetalleOrden_Producto" />
+        <EntityTypeShape EntityType="remiModel.DetalleProducto" Width="1.5" PointX="5.875" PointY="12.25" />
+        <AssociationConnector Association="remiModel.FK_DetalleProducto_Producto" />
+        <AssociationConnector Association="remiModel.FK_DetalleProducto_SubProducto" />
+        <EntityTypeShape EntityType="remiModel.DetallePedidoP" Width="1.5" PointX="8.875" PointY="13.125" />
+        <AssociationConnector Association="remiModel.FK_DetallePedidoP_Pedido" />
+        <AssociationConnector Association="remiModel.FK_DetallePedidoP_Producto" />
+        <AssociationConnector Association="remiModel.FK_DetallePedidoP_SubProducto" />
+        <EntityTypeShape EntityType="remiModel.DetallePedidoSP" Width="1.5" PointX="3" PointY="8.25" />
+        <AssociationConnector Association="remiModel.FK_DetallePedidoSP_Pedido" />
+        <AssociationConnector Association="remiModel.FK_DetallePedidoSP_SubProducto" />
+        <AssociationConnector Association="remiModel.FK_DetallePedidoSP_Suministros" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

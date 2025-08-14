@@ -20,47 +20,72 @@
     <Property Name="DireccionCliente" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="EstadoCliente" Type="bit" Nullable="false" />
   </EntityType>
-  <EntityType Name="DetallePedidoProducto">
+  <EntityType Name="DetalleOrden">
     <Key>
-      <PropertyRef Name="IdDetallePedidoProducto" />
+      <PropertyRef Name="IdPedido" />
+      <PropertyRef Name="IdOrden" />
+      <PropertyRef Name="IdSubProducto" />
+      <PropertyRef Name="IdProducto" />
     </Key>
-    <Property Name="IdDetallePedidoProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IdPedido" Type="int" Nullable="false" />
+    <Property Name="IdOrden" Type="int" Nullable="false" />
+    <Property Name="IdSubProducto" Type="int" Nullable="false" />
+    <Property Name="IdProducto" Type="int" Nullable="false" />
+    <Property Name="CantidadPorciones" Type="int" Nullable="false" />
+    <Property Name="PrecioOrden" Type="decimal" Precision="10" Scale="4" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DetallePedidoP">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+      <PropertyRef Name="IdSubProducto" />
+      <PropertyRef Name="IdPedido" />
+    </Key>
     <Property Name="IdProducto" Type="int" Nullable="false" />
     <Property Name="IdSubProducto" Type="int" Nullable="false" />
-    <Property Name="CostoParcial" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="IdPedido" Type="int" Nullable="false" />
     <Property Name="CantidadPorciones" Type="int" Nullable="false" />
+    <Property Name="CostoSubProducto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
   </EntityType>
   <EntityType Name="DetallePedidoSP">
     <Key>
-      <PropertyRef Name="IdDetallePedidoSP" />
+      <PropertyRef Name="IdPedido" />
+      <PropertyRef Name="IdSubProducto" />
+      <PropertyRef Name="IdSuministro" />
     </Key>
-    <Property Name="IdDetallePedidoSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IdPedido" Type="int" Nullable="false" />
     <Property Name="IdSubProducto" Type="int" Nullable="false" />
     <Property Name="IdSuministro" Type="int" Nullable="false" />
-    <Property Name="CantidadSuministroPSP" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="UnidadMedidaPSP" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="CantidadSuministroPSP" Type="decimal" Precision="10" Scale="4" Nullable="false" />
     <Property Name="CostoParcialPSP" Type="decimal" Precision="10" Scale="2" Nullable="false" />
   </EntityType>
   <EntityType Name="DetalleProducto">
     <Key>
-      <PropertyRef Name="IdDetalleProducto" />
+      <PropertyRef Name="IdSubProducto" />
+      <PropertyRef Name="IdProducto" />
     </Key>
-    <Property Name="IdDetalleProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IdSubProducto" Type="int" Nullable="false" />
     <Property Name="IdProducto" Type="int" Nullable="false" />
+    <Property Name="CantidadPorcionesP" Type="int" Nullable="false" />
+    <Property Name="CostoSubProducto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
   </EntityType>
   <EntityType Name="DetalleSubProducto">
     <Key>
-      <PropertyRef Name="IdDetalleSubProducto" />
+      <PropertyRef Name="IdSubProducto" />
+      <PropertyRef Name="IdSuministro" />
     </Key>
-    <Property Name="IdDetalleSubProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IdSubProducto" Type="int" Nullable="false" />
     <Property Name="IdSuministro" Type="int" Nullable="false" />
-    <Property Name="CantidadSuministro" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="UnidadMedidaSP" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="CantidadSuministro" Type="decimal" Precision="10" Scale="4" Nullable="false" />
     <Property Name="CostoSuministro" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ordenes">
+    <Key>
+      <PropertyRef Name="IdOrden" />
+    </Key>
+    <Property Name="IdOrden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DescripcionOrden" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="FechaCreacionOrden" Type="datetime" Nullable="false" />
+    <Property Name="FechaModOrden" Type="datetime" />
   </EntityType>
   <EntityType Name="Pedido">
     <Key>
@@ -79,7 +104,6 @@
     <Property Name="NombreProducto" Type="varchar" MaxLength="64" Nullable="false" />
     <Property Name="DescripcionProducto" Type="varchar" MaxLength="128" Nullable="false" />
     <Property Name="CostoProducto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-    <Property Name="PrecioProducto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="IdCategoria" Type="int" Nullable="false" />
     <Property Name="EstadoProducto" Type="bit" Nullable="false" />
   </EntityType>
@@ -109,10 +133,9 @@
     <Property Name="IdSubProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NombreSubProducto" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="DescripcionSubProducto" Type="nvarchar" MaxLength="255" Nullable="false" />
-    <Property Name="PrecioSubProducto" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="CostoSubProducto" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="EstadoSubProducto" Type="bit" Nullable="false" />
     <Property Name="Instrucciones" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="CostoSubProducto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="EstadoSubProducto" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Suministros">
     <Key>
@@ -124,10 +147,10 @@
     <Property Name="CostoSuministro" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="IdProveedor" Type="int" Nullable="false" />
     <Property Name="EstadoSuministro" Type="bit" Nullable="false" />
-    <Property Name="Cantidad" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="Cantidad" Type="decimal" Precision="10" Scale="4" Nullable="false" />
     <Property Name="UnidadMedida" Type="varchar" MaxLength="5" Nullable="false" />
-    <Property Name="ExistenciasSuministro" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="PresentacionSuministro" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="ExistenciasSuministro" Type="decimal" Precision="10" Scale="4" Nullable="false" />
+    <Property Name="PresentacionSuministro" Type="decimal" Precision="10" Scale="4" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -159,18 +182,6 @@
     <Property Name="DescripcionUtensilio" Type="varchar" MaxLength="128" />
     <Property Name="EstadoUtensilios" Type="bit" Nullable="false" />
   </EntityType>
-  <Association Name="FK__DetallePe__IdPed__4336F4B9">
-    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
-    <End Role="DetallePedidoProducto" Type="Self.DetallePedidoProducto" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Pedido">
-        <PropertyRef Name="IdPedido" />
-      </Principal>
-      <Dependent Role="DetallePedidoProducto">
-        <PropertyRef Name="IdPedido" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__Usuarios__IdRol__49C3F6B7">
     <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
     <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
@@ -183,26 +194,86 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_DetallePedidoProducto_Producto">
+  <Association Name="FK_DetalleOrden_Ordenes">
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="1" />
+    <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ordenes">
+        <PropertyRef Name="IdOrden" />
+      </Principal>
+      <Dependent Role="DetalleOrden">
+        <PropertyRef Name="IdOrden" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleOrden_Pedido">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+    <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="IdPedido" />
+      </Principal>
+      <Dependent Role="DetalleOrden">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetalleOrden_Producto">
     <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
-    <End Role="DetallePedidoProducto" Type="Self.DetallePedidoProducto" Multiplicity="*" />
+    <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Producto">
         <PropertyRef Name="IdProducto" />
       </Principal>
-      <Dependent Role="DetallePedidoProducto">
+      <Dependent Role="DetalleOrden">
         <PropertyRef Name="IdProducto" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_DetallePedidoProducto_SubProducto">
+  <Association Name="FK_DetalleOrden_SubProducto">
     <End Role="SubProducto" Type="Self.SubProducto" Multiplicity="1" />
-    <End Role="DetallePedidoProducto" Type="Self.DetallePedidoProducto" Multiplicity="*" />
+    <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="SubProducto">
         <PropertyRef Name="IdSubProducto" />
       </Principal>
-      <Dependent Role="DetallePedidoProducto">
+      <Dependent Role="DetalleOrden">
+        <PropertyRef Name="IdSubProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoP_Pedido">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+    <End Role="DetallePedidoP" Type="Self.DetallePedidoP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="IdPedido" />
+      </Principal>
+      <Dependent Role="DetallePedidoP">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoP_Producto">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="DetallePedidoP" Type="Self.DetallePedidoP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="DetallePedidoP">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoP_SubProducto">
+    <End Role="SubProducto" Type="Self.SubProducto" Multiplicity="1" />
+    <End Role="DetallePedidoP" Type="Self.DetallePedidoP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubProducto">
+        <PropertyRef Name="IdSubProducto" />
+      </Principal>
+      <Dependent Role="DetallePedidoP">
         <PropertyRef Name="IdSubProducto" />
       </Dependent>
     </ReferentialConstraint>
@@ -228,6 +299,18 @@
       </Principal>
       <Dependent Role="DetallePedidoSP">
         <PropertyRef Name="IdSubProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DetallePedidoSP_Suministros">
+    <End Role="Suministros" Type="Self.Suministros" Multiplicity="1" />
+    <End Role="DetallePedidoSP" Type="Self.DetallePedidoSP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Suministros">
+        <PropertyRef Name="IdSuministro" />
+      </Principal>
+      <Dependent Role="DetallePedidoSP">
+        <PropertyRef Name="IdSuministro" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -337,10 +420,12 @@
   <EntityContainer Name="remiModelStoreContainer">
     <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="DetallePedidoProducto" EntityType="Self.DetallePedidoProducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetalleOrden" EntityType="Self.DetalleOrden" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DetallePedidoP" EntityType="Self.DetallePedidoP" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetallePedidoSP" EntityType="Self.DetallePedidoSP" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetalleProducto" EntityType="Self.DetalleProducto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetalleSubProducto" EntityType="Self.DetalleSubProducto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ordenes" EntityType="Self.Ordenes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
@@ -350,21 +435,37 @@
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Utensilios" EntityType="Self.Utensilios" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__DetallePe__IdPed__4336F4B9" Association="Self.FK__DetallePe__IdPed__4336F4B9">
-      <End Role="Pedido" EntitySet="Pedido" />
-      <End Role="DetallePedidoProducto" EntitySet="DetallePedidoProducto" />
-    </AssociationSet>
     <AssociationSet Name="FK__Usuarios__IdRol__49C3F6B7" Association="Self.FK__Usuarios__IdRol__49C3F6B7">
       <End Role="Roles" EntitySet="Roles" />
       <End Role="Usuarios" EntitySet="Usuarios" />
     </AssociationSet>
-    <AssociationSet Name="FK_DetallePedidoProducto_Producto" Association="Self.FK_DetallePedidoProducto_Producto">
-      <End Role="Producto" EntitySet="Producto" />
-      <End Role="DetallePedidoProducto" EntitySet="DetallePedidoProducto" />
+    <AssociationSet Name="FK_DetalleOrden_Ordenes" Association="Self.FK_DetalleOrden_Ordenes">
+      <End Role="Ordenes" EntitySet="Ordenes" />
+      <End Role="DetalleOrden" EntitySet="DetalleOrden" />
     </AssociationSet>
-    <AssociationSet Name="FK_DetallePedidoProducto_SubProducto" Association="Self.FK_DetallePedidoProducto_SubProducto">
+    <AssociationSet Name="FK_DetalleOrden_Pedido" Association="Self.FK_DetalleOrden_Pedido">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="DetalleOrden" EntitySet="DetalleOrden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleOrden_Producto" Association="Self.FK_DetalleOrden_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="DetalleOrden" EntitySet="DetalleOrden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetalleOrden_SubProducto" Association="Self.FK_DetalleOrden_SubProducto">
       <End Role="SubProducto" EntitySet="SubProducto" />
-      <End Role="DetallePedidoProducto" EntitySet="DetallePedidoProducto" />
+      <End Role="DetalleOrden" EntitySet="DetalleOrden" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoP_Pedido" Association="Self.FK_DetallePedidoP_Pedido">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="DetallePedidoP" EntitySet="DetallePedidoP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoP_Producto" Association="Self.FK_DetallePedidoP_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="DetallePedidoP" EntitySet="DetallePedidoP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoP_SubProducto" Association="Self.FK_DetallePedidoP_SubProducto">
+      <End Role="SubProducto" EntitySet="SubProducto" />
+      <End Role="DetallePedidoP" EntitySet="DetallePedidoP" />
     </AssociationSet>
     <AssociationSet Name="FK_DetallePedidoSP_Pedido" Association="Self.FK_DetallePedidoSP_Pedido">
       <End Role="Pedido" EntitySet="Pedido" />
@@ -372,6 +473,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_DetallePedidoSP_SubProducto" Association="Self.FK_DetallePedidoSP_SubProducto">
       <End Role="SubProducto" EntitySet="SubProducto" />
+      <End Role="DetallePedidoSP" EntitySet="DetallePedidoSP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DetallePedidoSP_Suministros" Association="Self.FK_DetallePedidoSP_Suministros">
+      <End Role="Suministros" EntitySet="Suministros" />
       <End Role="DetallePedidoSP" EntitySet="DetallePedidoSP" />
     </AssociationSet>
     <AssociationSet Name="FK_DetalleProducto_Producto" Association="Self.FK_DetalleProducto_Producto">

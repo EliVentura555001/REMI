@@ -12,14 +12,13 @@ namespace Datos
     using System;
     using System.Collections.Generic;
     
-    public partial class DetallePedidoProducto
+    public partial class DetallePedidoP
     {
-        public int IdDetallePedidoProducto { get; set; }
-        public int IdPedido { get; set; }
         public int IdProducto { get; set; }
         public int IdSubProducto { get; set; }
-        public decimal CostoParcial { get; set; }
+        public int IdPedido { get; set; }
         public int CantidadPorciones { get; set; }
+        public decimal CostoSubProducto { get; set; }
     
         public virtual Pedido Pedido { get; set; }
         public virtual Producto Producto { get; set; }

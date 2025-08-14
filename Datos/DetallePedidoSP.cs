@@ -14,15 +14,14 @@ namespace Datos
     
     public partial class DetallePedidoSP
     {
-        public int IdDetallePedidoSP { get; set; }
         public int IdPedido { get; set; }
         public int IdSubProducto { get; set; }
         public int IdSuministro { get; set; }
         public decimal CantidadSuministroPSP { get; set; }
-        public string UnidadMedidaPSP { get; set; }
         public decimal CostoParcialPSP { get; set; }
     
         public virtual Pedido Pedido { get; set; }
         public virtual SubProducto SubProducto { get; set; }
+        public virtual Suministros Suministros { get; set; }
     }
 }

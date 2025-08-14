@@ -68,17 +68,23 @@
     <Compile Include="frmClientes.Designer.cs">
       <DependentUpon>frmClientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDetalleOrden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDetalleOrden.Designer.cs">
+      <DependentUpon>frmDetalleOrden.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDetallePedido.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmDetallePedido.Designer.cs">
       <DependentUpon>frmDetallePedido.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmDetallePedidoSP.cs">
+    <Compile Include="frmOrden.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDetallePedidoSP.Designer.cs">
-      <DependentUpon>frmDetallePedidoSP.cs</DependentUpon>
+    <Compile Include="frmOrden.Designer.cs">
+      <DependentUpon>frmOrden.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPedido.cs">
       <SubType>Form</SubType>
@@ -118,11 +124,14 @@
     <EmbeddedResource Include="frmClientes.resx">
       <DependentUpon>frmClientes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmDetalleOrden.resx">
+      <DependentUpon>frmDetalleOrden.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDetallePedido.resx">
       <DependentUpon>frmDetallePedido.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmDetallePedidoSP.resx">
-      <DependentUpon>frmDetallePedidoSP.cs</DependentUpon>
+    <EmbeddedResource Include="frmOrden.resx">
+      <DependentUpon>frmOrden.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPedido.resx">
       <DependentUpon>frmPedido.cs</DependentUpon>

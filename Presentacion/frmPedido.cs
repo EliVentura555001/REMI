@@ -47,14 +47,14 @@ namespace Presentacion
                 dgvPedido.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 if (dgvPedido.Columns.Count == 0)
                 {
-                    DataGridViewTextBoxColumn colIdProduc = new DataGridViewTextBoxColumn();
-                    colIdProduc.HeaderText = "IdProducto";
-                    colIdProduc.Name = "IdProducto";
-                    colIdProduc.Visible = false;
-                    dgvPedido.Columns.Add(colIdProduc);
-
+                    dgvPedido.Columns.Add("IdPedido", "IdPedido");
+                    dgvPedido.Columns.Add("IdProducto", "IdProducto");
                     dgvPedido.Columns.Add("NombreProducto", "Platillo");
                     dgvPedido.Columns.Add("CantidadPorciones", "Porciones");
+
+                    //Ocultar los ID
+                    dgvPedido.Columns["IdPedido"].Visible = false;
+                    dgvPedido.Columns["IdProducto"].Visible = false;
                 }
             }
             catch (Exception ex)
@@ -74,10 +74,7 @@ namespace Presentacion
                 dgvPedidoCreado.Columns.Add(colIdPedido);
                 dgvPedidoCreado.Columns.Add("Descripcion", "Descripción");
                 dgvPedidoCreado.Columns.Add("Fecha", "Fecha de Creación");
-                if (dgvPedidoCreado.Columns["FechaModPedido"] != null)
-                {
-                    dgvPedidoCreado.Columns.Add("FechaModPedido", "Fecha de Modificación");
-                }
+                //dgvPedidoCreado.Columns.Add("FechaModPedido", "Fecha de Modificación");
             }
             dgvPedidoCreado.Rows.Clear();
 
@@ -91,8 +88,9 @@ namespace Presentacion
                 dgvPedidoCreado.Rows.Add(
                     pedido.IdPedido,
                     pedido.DescripcionPedido,
-                    pedido.FechaPedido.ToString("dd/MM/yyyy"),
-                    pedido.FechaModPedido.HasValue ? pedido.FechaModPedido.Value.ToString("dd/MM/yyyy") : string.Empty);
+                    pedido.FechaPedido.ToString("dd/MM/yyyy")
+                    //pedido.FechaModPedido
+                    );
             }
             dgvPedido.Rows.Clear(); // Limpiar el DataGridView de pedidos al cargar nuevos pedidos
         }
@@ -130,14 +128,16 @@ namespace Presentacion
             }
 
             // Obtener valores
-            DetalleProducto_E datosFormulario = new DetalleProducto_E()
+            DetallePedidoP_E datosFormulario = new DetallePedidoP_E()
             {
+                IdPedido = Convert.ToInt32(txtDPedido.Tag),
                 IdProducto = Convert.ToInt32(cbxProducto.SelectedValue),
                 NombreProducto = cbxProducto.Text.Trim(),
                 CantidadPorciones = (int)nudCProducto.Value
             };
             // Agregar al DataGridView
             dgvPedido.Rows.Add(
+                    datosFormulario.IdPedido,      
                     datosFormulario.IdProducto,
                     datosFormulario.NombreProducto,
                     datosFormulario.CantidadPorciones);
@@ -174,17 +174,33 @@ namespace Presentacion
                     {
                         IdProducto = Convert.ToInt32(row.Cells["IdProducto"].Value),
                         NombreProducto = row.Cells["NombreProducto"].Value.ToString(),
-                        CantidadPorciones = Convert.ToInt32(row.Cells["CantidadPorciones"].Value)
+                        CantidadPorcionesP = Convert.ToInt32(row.Cells["CantidadPorciones"].Value)
                     });
                 }
             }
-            Pedidos_E pedido = new Pedidos_E
+            Pedidos_E pedido;
+            if (banderaModificar && pedidoSeleccionado != null)
             {
-                DescripcionPedido = txtDPedido.Text.Trim()
-                // Agrega otras propiedades si es necesario
-            };
+                // Editando: usa el pedido seleccionado, actualiza la descripción si cambió
+                pedido = pedidoSeleccionado;
+                pedido.DescripcionPedido = txtDPedido.Text.Trim();
+                // Si quieres actualizar los detalles, asigna listaDetalles
+                pedido.DetallePedido = listaDetalles;
+            }
+            else
+            {
+                // Nuevo pedido
+                pedido = new Pedidos_E
+                {
+                    DescripcionPedido = txtDPedido.Text.Trim(),
+                    DetallePedido = listaDetalles
+                };
+            }
+
             var frmDetalle = new frmDetallePedido(listaDetalles, pedido, banderaModificar);
             frmDetalle.ShowDialog();
+            CargarPedidoCreado();
+            Limpiar();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
@@ -215,7 +231,7 @@ namespace Presentacion
 
         private void dgvPedidoCreado_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var productos = new List<DetalleProducto_E>();
+            var productos = new List<DetallePedidoP_E>();
             if (e.RowIndex >= 0)
             {
                 int idPedido = Convert.ToInt32(dgvPedidoCreado.Rows[e.RowIndex].Cells["IdPedido"].Value);
@@ -230,11 +246,12 @@ namespace Presentacion
                     dgvPedido.Rows.Clear();
                     foreach (var detalle in pedidoSeleccionado.DetallePedido)
                     {
-                        productos.Add(new DetalleProducto_E()
+                        productos.Add(new DetallePedidoP_E()
                         {
+                            IdPedido = pedidoSeleccionado.IdPedido,
                             IdProducto = detalle.IdProducto,
                             NombreProducto = detalle.NombreProducto,
-                            CantidadPorciones = detalle.CantidadPorciones
+                            //CantidadPorciones = detalle.CantidadPorciones
                         });
                     }
                 }
@@ -244,18 +261,20 @@ namespace Presentacion
                 .GroupBy(i => new { i.IdProducto, i.NombreProducto })
                 .Select(g => new
                 {
+                    IdPedido = g.Key,
                     IdProducto = g.First().IdProducto,
                     NombreProducto = g.Key.NombreProducto,
-                    CantidadPorciones = g.First().CantidadPorciones
+                    //CantidadPorciones = g.First().CantidadPorciones
                 });
 
             // Agrega al grid
             foreach (var ing in productosAgrupados)
             {
                 dgvPedido.Rows.Add(
+                    pedidoSeleccionado.IdPedido,
                     ing.IdProducto,
-                    ing.NombreProducto,
-                    ing.CantidadPorciones
+                    ing.NombreProducto
+                    //ing.CantidadPorciones
                 );
             }
 

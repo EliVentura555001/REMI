@@ -42,11 +42,11 @@
             this.btnModificar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtCantidadSP = new System.Windows.Forms.TextBox();
+            this.lblCantidadSP = new System.Windows.Forms.Label();
             this.lblDetalleSP = new System.Windows.Forms.Label();
             this.dgvProducto = new System.Windows.Forms.DataGridView();
             this.cbProducto = new System.Windows.Forms.CheckBox();
-            this.lblPProducto = new System.Windows.Forms.Label();
-            this.txtPProducto = new System.Windows.Forms.TextBox();
             this.txtCProducto = new System.Windows.Forms.TextBox();
             this.lblCProducto = new System.Windows.Forms.Label();
             this.txtDProducto = new System.Windows.Forms.TextBox();
@@ -55,6 +55,8 @@
             this.lblNProducto = new System.Windows.Forms.Label();
             this.lblCatProducto = new System.Windows.Forms.Label();
             this.cbxCategoria = new System.Windows.Forms.ComboBox();
+            this.txtPProducto = new System.Windows.Forms.TextBox();
+            this.lblPProducto = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubProductos)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -98,6 +100,7 @@
             this.dgvSubProductos.RowTemplate.Height = 24;
             this.dgvSubProductos.Size = new System.Drawing.Size(738, 231);
             this.dgvSubProductos.TabIndex = 36;
+            this.dgvSubProductos.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSubProductos_CellValueChanged);
             this.dgvSubProductos.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvSubProductos_RowsRemoved);
             // 
             // btnSubProducto
@@ -106,7 +109,7 @@
             this.btnSubProducto.FlatAppearance.BorderSize = 2;
             this.btnSubProducto.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSubProducto.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubProducto.Location = new System.Drawing.Point(15, 127);
+            this.btnSubProducto.Location = new System.Drawing.Point(15, 165);
             this.btnSubProducto.Name = "btnSubProducto";
             this.btnSubProducto.Size = new System.Drawing.Size(129, 31);
             this.btnSubProducto.TabIndex = 35;
@@ -193,6 +196,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtCantidadSP);
+            this.groupBox1.Controls.Add(this.lblCantidadSP);
             this.groupBox1.Controls.Add(this.dgvSubProductos);
             this.groupBox1.Controls.Add(this.btnSubProducto);
             this.groupBox1.Controls.Add(this.cbxDetalleSP);
@@ -203,6 +208,23 @@
             this.groupBox1.TabIndex = 57;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Agregar Contenido";
+            // 
+            // txtCantidadSP
+            // 
+            this.txtCantidadSP.Enabled = false;
+            this.txtCantidadSP.Location = new System.Drawing.Point(148, 113);
+            this.txtCantidadSP.Name = "txtCantidadSP";
+            this.txtCantidadSP.Size = new System.Drawing.Size(82, 30);
+            this.txtCantidadSP.TabIndex = 45;
+            // 
+            // lblCantidadSP
+            // 
+            this.lblCantidadSP.AutoSize = true;
+            this.lblCantidadSP.Location = new System.Drawing.Point(54, 116);
+            this.lblCantidadSP.Name = "lblCantidadSP";
+            this.lblCantidadSP.Size = new System.Drawing.Size(88, 23);
+            this.lblCantidadSP.TabIndex = 44;
+            this.lblCantidadSP.Text = "Cantidad";
             // 
             // lblDetalleSP
             // 
@@ -258,27 +280,10 @@
             this.cbProducto.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.cbProducto.UseVisualStyleBackColor = true;
             // 
-            // lblPProducto
-            // 
-            this.lblPProducto.AutoSize = true;
-            this.lblPProducto.Location = new System.Drawing.Point(696, 62);
-            this.lblPProducto.Name = "lblPProducto";
-            this.lblPProducto.Size = new System.Drawing.Size(66, 23);
-            this.lblPProducto.TabIndex = 59;
-            this.lblPProducto.Text = "Precio";
-            // 
-            // txtPProducto
-            // 
-            this.txtPProducto.Enabled = false;
-            this.txtPProducto.Location = new System.Drawing.Point(764, 57);
-            this.txtPProducto.Name = "txtPProducto";
-            this.txtPProducto.Size = new System.Drawing.Size(75, 30);
-            this.txtPProducto.TabIndex = 60;
-            // 
             // txtCProducto
             // 
             this.txtCProducto.Enabled = false;
-            this.txtCProducto.Location = new System.Drawing.Point(471, 62);
+            this.txtCProducto.Location = new System.Drawing.Point(529, 60);
             this.txtCProducto.Name = "txtCProducto";
             this.txtCProducto.Size = new System.Drawing.Size(82, 30);
             this.txtCProducto.TabIndex = 54;
@@ -286,7 +291,7 @@
             // lblCProducto
             // 
             this.lblCProducto.AutoSize = true;
-            this.lblCProducto.Location = new System.Drawing.Point(355, 62);
+            this.lblCProducto.Location = new System.Drawing.Point(413, 60);
             this.lblCProducto.Name = "lblCProducto";
             this.lblCProducto.Size = new System.Drawing.Size(110, 23);
             this.lblCProducto.TabIndex = 52;
@@ -344,6 +349,23 @@
             this.cbxCategoria.Size = new System.Drawing.Size(186, 31);
             this.cbxCategoria.TabIndex = 62;
             // 
+            // txtPProducto
+            // 
+            this.txtPProducto.Enabled = false;
+            this.txtPProducto.Location = new System.Drawing.Point(764, 57);
+            this.txtPProducto.Name = "txtPProducto";
+            this.txtPProducto.Size = new System.Drawing.Size(75, 30);
+            this.txtPProducto.TabIndex = 60;
+            // 
+            // lblPProducto
+            // 
+            this.lblPProducto.AutoSize = true;
+            this.lblPProducto.Location = new System.Drawing.Point(696, 62);
+            this.lblPProducto.Name = "lblPProducto";
+            this.lblPProducto.Size = new System.Drawing.Size(66, 23);
+            this.lblPProducto.TabIndex = 59;
+            this.lblPProducto.Text = "Precio";
+            // 
             // frmProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
@@ -394,8 +416,6 @@
         private System.Windows.Forms.Label lblDetalleSP;
         private System.Windows.Forms.DataGridView dgvProducto;
         private System.Windows.Forms.CheckBox cbProducto;
-        private System.Windows.Forms.Label lblPProducto;
-        private System.Windows.Forms.TextBox txtPProducto;
         private System.Windows.Forms.TextBox txtCProducto;
         private System.Windows.Forms.Label lblCProducto;
         private System.Windows.Forms.TextBox txtDProducto;
@@ -404,5 +424,9 @@
         private System.Windows.Forms.Label lblNProducto;
         private System.Windows.Forms.Label lblCatProducto;
         private System.Windows.Forms.ComboBox cbxCategoria;
+        private System.Windows.Forms.TextBox txtPProducto;
+        private System.Windows.Forms.Label lblPProducto;
+        private System.Windows.Forms.TextBox txtCantidadSP;
+        private System.Windows.Forms.Label lblCantidadSP;
     }
 }

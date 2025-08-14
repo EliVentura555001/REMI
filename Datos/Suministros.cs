@@ -18,6 +18,7 @@ namespace Datos
         public Suministros()
         {
             this.DetalleSubProducto = new HashSet<DetalleSubProducto>();
+            this.DetallePedidoSP = new HashSet<DetallePedidoSP>();
         }
     
         public int IdSuministro { get; set; }
@@ -34,5 +35,7 @@ namespace Datos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleSubProducto> DetalleSubProducto { get; set; }
         public virtual Proveedores Proveedores { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetallePedidoSP> DetallePedidoSP { get; set; }
     }
 }

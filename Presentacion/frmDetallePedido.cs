@@ -35,7 +35,6 @@ namespace Presentacion
                 dgvDetallePedido.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 if (dgvDetallePedido.Columns.Count == 0)
                 {
-                    dgvDetallePedido.Columns.Add("IdDetallePedidoProducto", "IdDetallePedidoProducto");
                     dgvDetallePedido.Columns.Add("IdProducto", "IdProducto");
                     dgvDetallePedido.Columns.Add("IdSubProducto", "IdSubProducto");
                     dgvDetallePedido.Columns.Add("NombreProducto", "Producto");
@@ -45,15 +44,24 @@ namespace Presentacion
                     dgvDetallePedido.Columns.Add("PrecioSubProducto", "Precio");
 
                     // Oculta las columnas de Ids
-                   // dgvDetallePedido.Columns["IdDetallePedidoProducto"].Visible = false;
-                    //dgvDetallePedido.Columns["IdProducto"].Visible = false;
-                    //dgvDetallePedido.Columns["IdSubProducto"].Visible = false;
+                    dgvDetallePedido.Columns["IdProducto"].Visible = false;
+                    dgvDetallePedido.Columns["IdSubProducto"].Visible = false;
                     dgvDetallePedido.Columns["PrecioSubProducto"].Visible = false;
                 }
                 dgvDetallePedido.Rows.Clear();
 
-                // Agrupa por IdProducto e IdSubProducto
-                var subproductosAgrupados = new Dictionary<(int IdProducto, int IdSubProducto, int IdDetalleProducto), (string NombreProducto, string NombreSubProducto, int CantidadPorciones, decimal CostoUnitario, decimal PrecioSubProducto)>();
+                // Si estamos editando y el pedido tiene IdPedido, obtenemos los detalles desde la base
+                List<DetalleProducto_E> detallesBD = null;
+                if (pedidoActual != null && pedidoActual.IdPedido > 0)
+                {
+                    var pedidoBD = new Pedidos_L().ListarPedidos()
+                        .FirstOrDefault(p => p.IdPedido == pedidoActual.IdPedido);
+                    if (pedidoBD != null)
+                        detallesBD = pedidoBD.DetallePedido;
+                }
+
+                var subproductosAgrupados = new Dictionary<(int IdProducto, int IdSubProducto), (string NombreProducto, string NombreSubProducto, int CantidadPorciones, decimal CostoUnitario, decimal PrecioSubProducto)>();
+
                 foreach (var producto in productosSeleccionados)
                 {
                     bool primerproducto = true;
@@ -65,8 +73,19 @@ namespace Presentacion
                         {
                             foreach (var detalle in sub.DetalleProducto)
                             {
-                                var clave = (detalle.IdProducto, detalle.IdSubProducto, detalle.IdDetalleProducto);
-                                // Solo muestra el nombre del producto en la primera fila
+                                var clave = (detalle.IdProducto, detalle.IdSubProducto);
+
+                                // Lógica para decidir la cantidad de porciones
+                                // Lógica para decidir la cantidad de porciones
+                                int cantidadPorciones = producto.CantidadPorcionesP;
+                                if (cantidadPorciones == 0 && detallesBD != null)
+                                {
+                                    var detallePedido = detallesBD
+                                        .FirstOrDefault(d => d.IdProducto == detalle.IdProducto);
+                                    if (detallePedido != null)
+                                        cantidadPorciones = detallePedido.CantidadPorcionesP;
+                                }
+
                                 string nombreProductoMostrar = primerproducto ? detalle.NombreProducto : "";
                                 primerproducto = false;
                                 if (subproductosAgrupados.ContainsKey(clave))
@@ -75,9 +94,9 @@ namespace Presentacion
                                     subproductosAgrupados[clave] = (
                                         nombreProductoMostrar,
                                         actual.NombreSubProducto,
-                                        actual.CantidadPorciones + producto.CantidadPorciones,
+                                        cantidadPorciones,
                                         actual.CostoUnitario,
-                                        actual.PrecioSubProducto
+                                        actual.PrecioSubProducto = actual.CostoUnitario * 1.5m
                                     );
                                 }
                                 else
@@ -85,9 +104,9 @@ namespace Presentacion
                                     subproductosAgrupados[clave] = (
                                         nombreProductoMostrar,
                                         detalle.NombreSubProducto,
-                                        producto.CantidadPorciones,
+                                        cantidadPorciones,
                                         detalle.CostoSubProducto,
-                                        detalle.PrecioSubProducto
+                                        detalle.PrecioSubProducto = detalle.CostoSubProducto * 1.5m
                                     );
                                 }
                             }
@@ -101,7 +120,6 @@ namespace Presentacion
                     var key = kvp.Key;
                     var item = kvp.Value;
                     var nuevaFila = dgvDetallePedido.Rows[dgvDetallePedido.Rows.Add(
-                        key.IdDetalleProducto,
                         key.IdProducto,
                         key.IdSubProducto,
                         item.NombreProducto,
@@ -125,19 +143,16 @@ namespace Presentacion
             {
                 dgvDetallePedidoSP.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 if (dgvDetallePedidoSP.Columns.Count == 0)
-                {
-                    dgvDetallePedidoSP.Columns.Add("IdDetallePedidoSP", "IdDetallePedidoSP");
+                {;
                     dgvDetallePedidoSP.Columns.Add("IdSubProducto", "IdSubProducto");
                     dgvDetallePedidoSP.Columns.Add("IdSuministro", "IdSuministro");
                     dgvDetallePedidoSP.Columns.Add("NombreSubProducto", "SubProducto");
                     dgvDetallePedidoSP.Columns.Add("NombreSuministro", "Ingredientes");
                     dgvDetallePedidoSP.Columns.Add("CantidadSuministroPSP", "Cantidad");
-                    dgvDetallePedidoSP.Columns.Add("UnidadMedidaPSP", "Unidad de Medida");
                     dgvDetallePedidoSP.Columns.Add("CostoParcialPSP", "Costo Parcial");
 
-                    //dgvDetallePedidoSP.Columns["IdDetallePedidoSP"].Visible = false;
-                    //dgvDetallePedidoSP.Columns["IdSuministro"].Visible = false;
-                    //dgvDetallePedidoSP.Columns["IdSubProducto"].Visible = false;
+                    dgvDetallePedidoSP.Columns["IdSuministro"].Visible = false;
+                    dgvDetallePedidoSP.Columns["IdSubProducto"].Visible = false;
                 }
                 dgvDetallePedidoSP.Rows.Clear();
 
@@ -161,12 +176,10 @@ namespace Presentacion
                             // Multiplica la cantidad de suministro por la cantidad de porciones
                             ingredientes.Add(new DetalleSubProducto_E
                             {
-                                IdDetalleSubProducto = detalle.IdDetalleSubProducto,
                                 IdSubProducto = detalle.IdSubProducto,
                                 IdSuministro = detalle.IdSuministro,
                                 NombreSubProducto = nombreSubProductoMostrar,
                                 NombreSuministros = detalle.NombreSuministros,
-                                UnidadMedidaSP = detalle.UnidadMedidaSP,
                                 CantidadSuministro = detalle.CantidadSuministro * cantidadPorciones,
                                 CostoSuministro = detalle.CostoSuministro * cantidadPorciones
                             });
@@ -179,13 +192,11 @@ namespace Presentacion
                     .GroupBy(i => new { i.IdSubProducto, i.NombreSuministros })
                     .Select(g => new
                     {
-                        IdDetalleSubProducto = g.First().IdDetalleSubProducto,
                         IdSubProducto = g.Key.IdSubProducto,
                         IdSuministro = g.First().IdSuministro,
                         NombreSubProducto = g.First().NombreSubProducto,
                         NombreSuministro = g.Key.NombreSuministros,
                         CantidadSuministro = g.Sum(x => x.CantidadSuministro),
-                        UnidadMedidaSP = g.First().UnidadMedidaSP,
                         CostoParcialPSP = g.Sum(x => x.CostoSuministro)
                     });
 
@@ -193,13 +204,11 @@ namespace Presentacion
                 foreach (var ing in ingredientesAgrupados)
                 {
                     dgvDetallePedidoSP.Rows.Add(
-                        ing.IdDetalleSubProducto, 
                         ing.IdSubProducto,
                         ing.IdSuministro,
                         ing.NombreSubProducto,
                         ing.NombreSuministro,
                         ing.CantidadSuministro,
-                        ing.UnidadMedidaSP,
                         ing.CostoParcialPSP
                     );
                 }
@@ -227,12 +236,10 @@ namespace Presentacion
                 {
                     var detallep = new DetalleProducto_E
                     {
-                        IdDetalleProducto = Convert.ToInt32(row.Cells["IdProducto"].Tag), // Se genera en BD si es autoincremental
                         IdProducto = Convert.ToInt32(row.Cells["IdProducto"].Value),
                         IdSubProducto = Convert.ToInt32(row.Cells["IdSubProducto"].Value),
-                        CantidadPorciones = Convert.ToInt32(row.Cells["CantidadPorciones"].Value),
+                        CantidadPorcionesP = Convert.ToInt32(row.Cells["CantidadPorciones"].Value),
                         CostoSubProducto = Convert.ToDecimal(row.Cells["CostoParcial"].Value),
-                        PrecioSubProducto = Convert.ToDecimal(row.Cells["PrecioSubProducto"].Value),
                     };
                     detallesP.Add(detallep);
                 }
@@ -246,11 +253,9 @@ namespace Presentacion
                 {
                     var detallesp = new DetalleSubProducto_E
                     {
-                        IdDetalleSubProducto = Convert.ToInt32(row.Cells["IdSubProducto"].Tag), // Se genera en BD si es autoincremental
-                        IdSubProducto = Convert.ToInt32(row.Cells["IdSubProducto"].Value),
                         IdSuministro = Convert.ToInt32(row.Cells["IdSuministro"].Value),
+                        IdSubProducto = Convert.ToInt32(row.Cells["IdSubProducto"].Value),
                         CantidadSuministro = Convert.ToDecimal(row.Cells["CantidadSuministroPSP"].Value),
-                        UnidadMedidaSP = row.Cells["UnidadMedidaPSP"].Value?.ToString(),
                         CostoSuministro = Convert.ToDecimal(row.Cells["CostoParcialPSP"].Value),
                     };
                     detallesSP.Add(detallesp);
@@ -260,6 +265,7 @@ namespace Presentacion
             // 3. Crear el objeto principal y asignar la lista de detalles
             Pedidos_E datosFormulario = new Pedidos_E()
             {
+                IdPedido = pedidoActual?.IdPedido ?? 0, // Si es nuevo, será 0
                 DescripcionPedido = pedidoActual?.DescripcionPedido ?? "Pedido generado",
                 DetallePedido = detallesP,
                 DetallePedidoSP = detallesSP

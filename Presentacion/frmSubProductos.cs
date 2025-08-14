@@ -78,11 +78,10 @@ namespace Presentacion
                 // Personaliza los títulos de las columnas
                 dgvSubProducto.Columns["NombreSubProducto"].HeaderText = "Nombre";
                 dgvSubProducto.Columns["DescripcionSubProducto"].HeaderText = "Descripcion";
-                dgvSubProducto.Columns["CostoSubProducto"].HeaderText = "Costo";
-                dgvSubProducto.Columns["PrecioSubProducto"].HeaderText = "Precio";
                 dgvSubProducto.Columns["Instrucciones"].HeaderText = "Instrucciones";
+                dgvSubProducto.Columns["CostoSubProducto"].HeaderText = "Costo";
                 // Agrega columna para los suministros
-                if(!dgvSubProducto.Columns.Contains("Suministros"))
+                if (!dgvSubProducto.Columns.Contains("Suministros"))
                 {
                     DataGridViewTextBoxColumn colSuministros = new DataGridViewTextBoxColumn();
                     colSuministros.HeaderText = "Suministros";
@@ -116,15 +115,7 @@ namespace Presentacion
         {
             try
             {
-                dgvSuministroSP.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill; 
-                if (!dgvSuministroSP.Columns.Contains("IdDetalleSubProducto"))
-                {
-                    DataGridViewTextBoxColumn colIdDetalleSP = new DataGridViewTextBoxColumn();
-                    colIdDetalleSP.HeaderText = "IdDetalleSubProducto";
-                    colIdDetalleSP.Name = "IdDetalleSubProducto";
-                    colIdDetalleSP.Visible = false;
-                    dgvSuministroSP.Columns.Add(colIdDetalleSP);
-                }
+                dgvSuministroSP.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 if (!dgvSuministroSP.Columns.Contains("IdSuministro"))
                 {
                     DataGridViewTextBoxColumn colIdSuministros = new DataGridViewTextBoxColumn();
@@ -134,9 +125,7 @@ namespace Presentacion
                     dgvSuministroSP.Columns.Add(colIdSuministros);
                 }
                 dgvSuministroSP.Columns.Add("Suministros", "Ingredientes");
-
                 dgvSuministroSP.Columns.Add("Cantidades", "Cantidades");
-                dgvSuministroSP.Columns.Add("UnidadMedidaSP", "Unidad Medida");
                 dgvSuministroSP.Columns.Add("CostoSuministro", "Costo");
             }
             catch (Exception ex)
@@ -190,12 +179,10 @@ namespace Presentacion
                     {
                         var detalle = new DetalleSubProducto_E
                         {
-                            IdDetalleSubProducto = Convert.ToInt32(row.Cells["IdDetalleSubProducto"].Value),
-                            IdSuministro = Convert.ToInt32(row.Cells[1].Value),
-                            NombreSuministros = row.Cells[2].Value?.ToString(),
-                            CantidadSuministro = Convert.ToDecimal(row.Cells[3].Value),
-                            UnidadMedidaSP = row.Cells[4].Value?.ToString(),
-                            CostoSuministro = Convert.ToDecimal(row.Cells[5].Value)
+                            IdSuministro = Convert.ToInt32(row.Cells[0].Value),
+                            NombreSuministros = row.Cells[1].Value?.ToString(),
+                            CantidadSuministro = Convert.ToDecimal(row.Cells[2].Value),
+                            CostoSuministro = Convert.ToDecimal(row.Cells[3].Value)
                         };
                         detalles.Add(detalle);
                     }
@@ -209,7 +196,6 @@ namespace Presentacion
                     DescripcionSubProducto = txtDSubProducto.Text.Trim(),
                     Instrucciones = txtISubProductos.Text.Trim(),
                     CostoSubProducto = Convert.ToDecimal(txtCSubProducto.Text.Trim()),
-                    PrecioSubProducto = Convert.ToDecimal(txtPSubProducto.Text.Trim()),
                     EstadoSubProducto = cbSubProducto.Checked,
                     DetalleSubProducto = detalles // ← Aquí agregas la lista
                 };
@@ -280,9 +266,8 @@ namespace Presentacion
             txtNSubProducto.Tag = subProducto.IdSubProducto;
             txtNSubProducto.Text = subProducto.NombreSubProducto;
             txtDSubProducto.Text = subProducto.DescripcionSubProducto;
-            txtCSubProducto.Text = subProducto.CostoSubProducto.ToString();
-            txtPSubProducto.Text = subProducto.PrecioSubProducto.ToString();
             txtISubProductos.Text = subProducto.Instrucciones;
+            txtCSubProducto.Text = subProducto.CostoSubProducto.ToString("F2");
             cbSubProducto.Checked = subProducto.EstadoSubProducto;
 
             // 3. Limpia el DataGridView de detalles
@@ -291,12 +276,10 @@ namespace Presentacion
             // 4. Carga los detalles al DataGridView
             foreach (var detalle in subProducto.DetalleSubProducto)
             {
-                dgvSuministroSP.Rows.Add(
-                    detalle.IdDetalleSubProducto, // Asume que esta columna es para el IdDetalleSubProducto
+                dgvSuministroSP.Rows.Add( // Asume que esta columna es para el IdDetalleSubProducto
                     detalle.IdSuministro,
                     detalle.NombreSuministros,
                     ((double)detalle.CantidadSuministro),
-                    detalle.UnidadMedidaSP,
                     detalle.CostoSuministro.ToString("F2")
                 );
             }
@@ -329,22 +312,18 @@ namespace Presentacion
             // Obtener valores
             DetalleSubProducto_E datosFormulario = new DetalleSubProducto_E()
             {
-                IdDetalleSubProducto = Convert.ToInt32(txtCSuministro.Tag),
-                //IdSubProducto = Convert.ToInt32(txtCSuministro.Tag),
+                IdSubProducto = Convert.ToInt32(txtCSuministro.Tag),
                 IdSuministro = Convert.ToInt32(cbxSDetalleSP.SelectedValue),
                 NombreSuministros = cbxSDetalleSP.Text.Trim(),
-                UnidadMedidaSP = txtSUnidadMedida.Text.Trim(),
                 CantidadSuministro = Convert.ToDecimal(txtCSuministro.Text.Trim()),
                 CostoSuministro = CalcularCostoSuministro(Convert.ToInt32(cbxSDetalleSP.SelectedValue), Convert.ToDecimal(txtCSuministro.Text.Trim()))
             };
             // Agregar al DataGridView
             dgvSuministroSP.Rows.Add(
-                    datosFormulario.IdDetalleSubProducto,
                     //datosFormulario.IdSubProducto,
                     datosFormulario.IdSuministro,
                     datosFormulario.NombreSuministros,
-                    datosFormulario.CantidadSuministro,
-                    datosFormulario.UnidadMedidaSP,
+                    datosFormulario.CantidadSuministro.ToString("F2"),
                     datosFormulario.CostoSuministro.ToString("F2")
                     );
 
@@ -388,9 +367,18 @@ namespace Presentacion
 
         private void dgvSuministroSP_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            // Solo recalcula si la columna modificada es "Cantidades"
+            // Solo recalcula si la columna modificada es "Cantidades"  
             if (dgvSuministroSP.Columns[e.ColumnIndex].Name == "Cantidades")
             {
+                // Obtener el IdSuministro y la cantidad desde la fila modificada  
+                int idSuministro = Convert.ToInt32(dgvSuministroSP.Rows[e.RowIndex].Cells["IdSuministro"].Value);
+                decimal cantidad = 0;
+                decimal.TryParse(dgvSuministroSP.Rows[e.RowIndex].Cells["Cantidades"].Value?.ToString(), out cantidad);
+
+                // Calcular el costo del suministro y actualizar la celda correspondiente  
+                dgvSuministroSP.Rows[e.RowIndex].Cells["CostoSuministro"].Value = CalcularCostoSuministro(idSuministro, cantidad).ToString("F2");
+
+                // Actualizar el costo total  
                 ActualizarCostoTotal();
             }
         }

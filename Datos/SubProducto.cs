@@ -17,27 +17,29 @@ namespace Datos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SubProducto()
         {
-            this.DetallePedidoProducto = new HashSet<DetallePedidoProducto>();
-            this.DetallePedidoSP = new HashSet<DetallePedidoSP>();
-            this.DetalleProducto = new HashSet<DetalleProducto>();
+            this.DetalleOrden = new HashSet<DetalleOrden>();
             this.DetalleSubProducto = new HashSet<DetalleSubProducto>();
+            this.DetalleProducto = new HashSet<DetalleProducto>();
+            this.DetallePedidoP = new HashSet<DetallePedidoP>();
+            this.DetallePedidoSP = new HashSet<DetallePedidoSP>();
         }
     
         public int IdSubProducto { get; set; }
         public string NombreSubProducto { get; set; }
         public string DescripcionSubProducto { get; set; }
-        public decimal PrecioSubProducto { get; set; }
+        public string Instrucciones { get; set; }
         public decimal CostoSubProducto { get; set; }
         public bool EstadoSubProducto { get; set; }
-        public string Instrucciones { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetallePedidoProducto> DetallePedidoProducto { get; set; }
+        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetallePedidoSP> DetallePedidoSP { get; set; }
+        public virtual ICollection<DetalleSubProducto> DetalleSubProducto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleProducto> DetalleProducto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleSubProducto> DetalleSubProducto { get; set; }
+        public virtual ICollection<DetallePedidoP> DetallePedidoP { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetallePedidoSP> DetallePedidoSP { get; set; }
     }
 }

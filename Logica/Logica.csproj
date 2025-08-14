@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Categorias_L.cs" />
     <Compile Include="Clientes_L.cs" />
+    <Compile Include="Ordenes_L.cs" />
     <Compile Include="Pedidos_L.cs" />
     <Compile Include="Productos_L.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
