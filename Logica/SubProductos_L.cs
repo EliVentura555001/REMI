@@ -23,6 +23,7 @@ namespace Logica
                         SubProductodb.NombreSubProducto = actualizarSubProducto.NombreSubProducto;
                         SubProductodb.DescripcionSubProducto = actualizarSubProducto.DescripcionSubProducto;
                         SubProductodb.Instrucciones = actualizarSubProducto.Instrucciones;
+                        SubProductodb.IdCategoriaSP = actualizarSubProducto.IdCategoriaSP;
                         SubProductodb.CostoSubProducto = actualizarSubProducto.CostoSubProducto;
                         SubProductodb.EstadoSubProducto = actualizarSubProducto.EstadoSubProducto;
                         db.SaveChanges();
@@ -111,6 +112,7 @@ namespace Logica
                             NombreSubProducto = datosNuevoSubProducto.NombreSubProducto,
                             DescripcionSubProducto = datosNuevoSubProducto.DescripcionSubProducto,
                             Instrucciones = datosNuevoSubProducto.Instrucciones,
+                            IdCategoriaSP = datosNuevoSubProducto.IdCategoriaSP,
                             CostoSubProducto = datosNuevoSubProducto.CostoSubProducto,
                             EstadoSubProducto = datosNuevoSubProducto.EstadoSubProducto
                         };
@@ -168,6 +170,7 @@ namespace Logica
                     DescripcionSubProducto = s.DescripcionSubProducto,
                     Instrucciones = s.Instrucciones,
                     CostoSubProducto = s.CostoSubProducto,
+                    IdCategoriaSP = s.IdCategoriaSP,
                 }).ToList();
                 return subProductos;
             }
@@ -183,6 +186,8 @@ namespace Logica
                     NombreSubProducto = s.NombreSubProducto,
                     DescripcionSubProducto = s.DescripcionSubProducto,
                     Instrucciones = s.Instrucciones,
+                    IdCategoriaSP = s.IdCategoriaSP,
+                    NombreCategoriaSP = s.CategoriaSubProducto.NombreCategoriaSP,
                     CostoSubProducto = s.CostoSubProducto,
                     DetalleSubProducto = s.DetalleSubProducto
                         .Select(d => new DetalleSubProducto_E
@@ -199,25 +204,6 @@ namespace Logica
                 return subProductos;
             }
         }
-        //public List<SubProductos_E> ListarSubProductosPorProducto(int idProducto)
-        //{
-        //    using (var db = new remiEntities())
-        //    {
-        //        var subProductos = db.DetalleProducto
-        //            .Where(dp => dp.IdProducto == idProducto)
-        //            .Select(dp => dp.SubProducto)
-        //            .Distinct()
-        //            .Select(sp => new SubProductos_E
-        //            {
-        //                IdSubProducto = sp.IdSubProducto,
-        //                NombreSubProducto = sp.NombreSubProducto,
-        //                CostoSubProducto = sp.CostoSubProducto,
-        //            })
-        //            .ToList();
-
-        //        return subProductos;
-        //    }
-        //}
         public List<DetalleSubProducto_E> ObtenerDetallesDeSubProducto(int idSubProducto)
         {
             using (var db = new remiEntities())

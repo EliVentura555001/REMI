@@ -27,6 +27,7 @@ namespace Presentacion
             txtISubProductos.Enabled = false;
             txtCSuministro.Enabled = false;
             cbxSDetalleSP.Enabled = false;
+            cbxCategoriaSP.Enabled = false;
             cbSubProducto.Enabled = false;
             btnNuevo.Enabled = true;
             btnSuministro.Enabled = false;
@@ -41,6 +42,7 @@ namespace Presentacion
             txtCSuministro.Clear();
             txtSUnidadMedida.Clear();
             cbxSDetalleSP.SelectedIndex = -1;
+            cbxCategoriaSP.SelectedIndex = -1;
             cbSubProducto.Checked = false;
             dgvSuministroSP.Rows.Clear();
             dgvSuministroSP.Enabled = false;
@@ -65,6 +67,23 @@ namespace Presentacion
 
             }
         }
+        public void CargarComboBoxCategorias()
+        {
+            try
+            {
+                List<CategoriasSubProducto_E> categoriasActivas = new List<CategoriasSubProducto_E>();
+                categoriasActivas = new CategoriasSubProducto_L().ListarCategoriasSPActivas();
+                cbxCategoriaSP.DataSource = categoriasActivas;
+                cbxCategoriaSP.DisplayMember = "NombreCategoriaSP";
+                cbxCategoriaSP.ValueMember = "IdCategoriaSP";
+                cbxCategoriaSP.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
         private void CargarGridSP()
         {
             try
@@ -73,6 +92,7 @@ namespace Presentacion
                 subProductos = new SubProductos_L().ListarSubProductos();
                 dgvSubProducto.DataSource = subProductos;
                 dgvSubProducto.Columns["IdSubProducto"].Visible = false;
+                dgvSubProducto.Columns["IdCategoriaSP"].Visible = false;
                 dgvSubProducto.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
                 // Personaliza los títulos de las columnas
@@ -80,6 +100,7 @@ namespace Presentacion
                 dgvSubProducto.Columns["DescripcionSubProducto"].HeaderText = "Descripcion";
                 dgvSubProducto.Columns["Instrucciones"].HeaderText = "Instrucciones";
                 dgvSubProducto.Columns["CostoSubProducto"].HeaderText = "Costo";
+                dgvSubProducto.Columns["NombreCategoriaSP"].HeaderText = "Categoria";
                 // Agrega columna para los suministros
                 if (!dgvSubProducto.Columns.Contains("Suministros"))
                 {
@@ -138,6 +159,7 @@ namespace Presentacion
             CargarGridSP();
             CargarGridSuministros();
             CargarComboBox(); 
+            CargarComboBoxCategorias();
             dgvSuministroSP.CellValueChanged += dgvSuministroSP_CellValueChanged;
             dgvSuministroSP.RowsRemoved += dgvSuministroSP_RowsRemoved;
         }
@@ -149,6 +171,7 @@ namespace Presentacion
             txtISubProductos.Enabled = true;
             txtCSuministro.Enabled = true;
             cbxSDetalleSP.Enabled = true; 
+            cbxCategoriaSP.Enabled = true; 
             cbSubProducto.Enabled = true;
             btnNuevo.Enabled = false;
             btnModificar.Enabled = false;
@@ -195,6 +218,7 @@ namespace Presentacion
                     NombreSubProducto = txtNSubProducto.Text.Trim(),
                     DescripcionSubProducto = txtDSubProducto.Text.Trim(),
                     Instrucciones = txtISubProductos.Text.Trim(),
+                    IdCategoriaSP = Convert.ToInt32(cbxCategoriaSP.SelectedValue),
                     CostoSubProducto = Convert.ToDecimal(txtCSubProducto.Text.Trim()),
                     EstadoSubProducto = cbSubProducto.Checked,
                     DetalleSubProducto = detalles // ← Aquí agregas la lista
@@ -240,6 +264,7 @@ namespace Presentacion
             txtISubProductos.Enabled = true;
             txtCSuministro.Enabled = true;
             cbxSDetalleSP.Enabled = true;
+            cbxCategoriaSP.Enabled = true;
             cbSubProducto.Enabled = true;
             dgvSuministroSP.Enabled = true;
             btnNuevo.Enabled = false;
@@ -267,6 +292,7 @@ namespace Presentacion
             txtNSubProducto.Text = subProducto.NombreSubProducto;
             txtDSubProducto.Text = subProducto.DescripcionSubProducto;
             txtISubProductos.Text = subProducto.Instrucciones;
+            cbxCategoriaSP.SelectedValue = subProducto.IdCategoriaSP;
             txtCSubProducto.Text = subProducto.CostoSubProducto.ToString("F2");
             cbSubProducto.Checked = subProducto.EstadoSubProducto;
 

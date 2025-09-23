@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CategoriasSubProducto_E.cs" />
     <Compile Include="Categorias_E.cs" />
     <Compile Include="Clientes_E.cs" />
     <Compile Include="DetalleOrden_E.cs" />

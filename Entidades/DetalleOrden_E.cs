@@ -15,5 +15,6 @@ namespace Entidades
         public int CantidadPorciones { get; set; }
         public decimal PrecioOrden { get; set; }
         public string NombreSubProducto { get; set; }
+        public string NombreProducto { get; set; }
     }
 }

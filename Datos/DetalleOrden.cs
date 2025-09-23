@@ -23,7 +23,7 @@ namespace Datos
     
         public virtual Ordenes Ordenes { get; set; }
         public virtual Pedido Pedido { get; set; }
-        public virtual SubProducto SubProducto { get; set; }
         public virtual Producto Producto { get; set; }
+        public virtual SubProducto SubProducto { get; set; }
     }
 }

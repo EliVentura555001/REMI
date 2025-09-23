@@ -180,7 +180,7 @@ namespace Logica
                     NombreProducto = s.NombreProducto,
                     DescripcionProducto = s.DescripcionProducto,
                     CostoProducto = s.CostoProducto,
-                    IdCategoria = s.IdProducto,
+                    IdCategoria = s.IdCategoria,
                     NombreCategoria = s.Categorias.NombreCategoria,
                     DetalleProducto = s.DetalleProducto
                         .Select(d => new DetalleProducto_E

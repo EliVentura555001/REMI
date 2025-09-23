@@ -59,6 +59,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.txtPSubProducto = new System.Windows.Forms.TextBox();
             this.lblPSubProducto = new System.Windows.Forms.Label();
+            this.lblCategoria = new System.Windows.Forms.Label();
+            this.cbxCategoriaSP = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSuministroSP)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -124,7 +126,7 @@
             // 
             this.cbSubProducto.AutoSize = true;
             this.cbSubProducto.Enabled = false;
-            this.cbSubProducto.Location = new System.Drawing.Point(1243, 66);
+            this.cbSubProducto.Location = new System.Drawing.Point(1291, 73);
             this.cbSubProducto.Name = "cbSubProducto";
             this.cbSubProducto.Size = new System.Drawing.Size(83, 28);
             this.cbSubProducto.TabIndex = 25;
@@ -135,7 +137,7 @@
             // lblCSubProducto
             // 
             this.lblCSubProducto.AutoSize = true;
-            this.lblCSubProducto.Location = new System.Drawing.Point(1144, 8);
+            this.lblCSubProducto.Location = new System.Drawing.Point(992, 74);
             this.lblCSubProducto.Name = "lblCSubProducto";
             this.lblCSubProducto.Size = new System.Drawing.Size(94, 24);
             this.lblCSubProducto.TabIndex = 21;
@@ -146,7 +148,7 @@
             this.txtDSubProducto.Enabled = false;
             this.txtDSubProducto.Location = new System.Drawing.Point(529, 8);
             this.txtDSubProducto.Name = "txtDSubProducto";
-            this.txtDSubProducto.Size = new System.Drawing.Size(568, 30);
+            this.txtDSubProducto.Size = new System.Drawing.Size(448, 30);
             this.txtDSubProducto.TabIndex = 20;
             // 
             // lblDSubProducto
@@ -210,9 +212,9 @@
             // txtCSubProducto
             // 
             this.txtCSubProducto.Enabled = false;
-            this.txtCSubProducto.Location = new System.Drawing.Point(1244, 8);
+            this.txtCSubProducto.Location = new System.Drawing.Point(1092, 71);
             this.txtCSubProducto.Name = "txtCSubProducto";
-            this.txtCSubProducto.Size = new System.Drawing.Size(82, 30);
+            this.txtCSubProducto.Size = new System.Drawing.Size(48, 30);
             this.txtCSubProducto.TabIndex = 32;
             // 
             // lblInstruc
@@ -375,25 +377,46 @@
             // txtPSubProducto
             // 
             this.txtPSubProducto.Enabled = false;
-            this.txtPSubProducto.Location = new System.Drawing.Point(1102, 61);
+            this.txtPSubProducto.Location = new System.Drawing.Point(1219, 71);
             this.txtPSubProducto.Name = "txtPSubProducto";
-            this.txtPSubProducto.Size = new System.Drawing.Size(75, 30);
+            this.txtPSubProducto.Size = new System.Drawing.Size(56, 30);
             this.txtPSubProducto.TabIndex = 47;
             // 
             // lblPSubProducto
             // 
             this.lblPSubProducto.AutoSize = true;
-            this.lblPSubProducto.Location = new System.Drawing.Point(1034, 66);
+            this.lblPSubProducto.Location = new System.Drawing.Point(1158, 74);
             this.lblPSubProducto.Name = "lblPSubProducto";
             this.lblPSubProducto.Size = new System.Drawing.Size(55, 24);
             this.lblPSubProducto.TabIndex = 46;
             this.lblPSubProducto.Text = "Precio";
+            // 
+            // lblCategoria
+            // 
+            this.lblCategoria.AutoSize = true;
+            this.lblCategoria.Location = new System.Drawing.Point(992, 11);
+            this.lblCategoria.Name = "lblCategoria";
+            this.lblCategoria.Size = new System.Drawing.Size(80, 24);
+            this.lblCategoria.TabIndex = 48;
+            this.lblCategoria.Text = "Categoria";
+            // 
+            // cbxCategoriaSP
+            // 
+            this.cbxCategoriaSP.Enabled = false;
+            this.cbxCategoriaSP.FormattingEnabled = true;
+            this.cbxCategoriaSP.Location = new System.Drawing.Point(1079, 5);
+            this.cbxCategoriaSP.Margin = new System.Windows.Forms.Padding(4);
+            this.cbxCategoriaSP.Name = "cbxCategoriaSP";
+            this.cbxCategoriaSP.Size = new System.Drawing.Size(289, 32);
+            this.cbxCategoriaSP.TabIndex = 45;
             // 
             // frmSubProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1386, 751);
+            this.Controls.Add(this.cbxCategoriaSP);
+            this.Controls.Add(this.lblCategoria);
             this.Controls.Add(this.txtPSubProducto);
             this.Controls.Add(this.lblPSubProducto);
             this.Controls.Add(this.groupBox3);
@@ -413,6 +436,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "frmSubProductos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SubProductos";
             this.Load += new System.EventHandler(this.frmSubProductos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSubProducto)).EndInit();
@@ -454,5 +478,7 @@
         private System.Windows.Forms.TextBox txtSUnidadMedida;
         private System.Windows.Forms.TextBox txtPSubProducto;
         private System.Windows.Forms.Label lblPSubProducto;
+        private System.Windows.Forms.Label lblCategoria;
+        private System.Windows.Forms.ComboBox cbxCategoriaSP;
     }
 }

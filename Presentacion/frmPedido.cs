@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace Presentacion
 {
@@ -74,7 +75,13 @@ namespace Presentacion
                 dgvPedidoCreado.Columns.Add(colIdPedido);
                 dgvPedidoCreado.Columns.Add("Descripcion", "Descripción");
                 dgvPedidoCreado.Columns.Add("Fecha", "Fecha de Creación");
-                //dgvPedidoCreado.Columns.Add("FechaModPedido", "Fecha de Modificación");
+                // Agregar columna de acciones si no existe
+                DataGridViewButtonColumn opcionesCol = new DataGridViewButtonColumn();
+                opcionesCol.Name = "Opciones";
+                opcionesCol.HeaderText = "Opciones";
+                opcionesCol.Text = "Detalles";
+                opcionesCol.UseColumnTextForButtonValue = true;
+                dgvPedidoCreado.Columns.Add(opcionesCol);
             }
             dgvPedidoCreado.Rows.Clear();
 
@@ -109,6 +116,70 @@ namespace Presentacion
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void LlenarDetalleOrden(Pedidos_E pedido)
+        {
+            dgvDetallesSubP.Rows.Clear();
+            dgvDetallesSubP.Columns.Clear();
+            dgvDetallesSubP.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Configura las columnas solo una vez
+            if (dgvDetallesSubP.Columns.Count == 0)
+            {
+                dgvDetallesSubP.Columns.Add("NombreProducto", "Platillo");
+                dgvDetallesSubP.Columns.Add("NombreSubProducto", "Elemento");
+                dgvDetallesSubP.Columns.Add("CantidadPorciones", "Porciones");
+                dgvDetallesSubP.Columns.Add("NombreSuministro", "Suministro");
+                dgvDetallesSubP.Columns.Add("CantidadSuministro", "Cantidad Suministro");
+            }
+
+            // Relaciona cada subproducto con sus suministros
+            bool productoMostrado = false;
+            foreach (var detalleProd in pedido.DetallePedido)
+            {
+                // Busca los suministros asociados a este subproducto
+                var suministros = pedido.DetallePedidoSP
+                    .Where(sp => sp.IdSubProducto == detalleProd.IdSubProducto)
+                    .ToList();
+
+                // Si hay suministros, muestra cada uno en una fila
+                if (suministros.Count > 0)
+                {
+                    bool primersubproducto = true;
+                    bool Cantidad = true;
+                    foreach (var suministro in suministros)
+                    {
+                        string productoMostrar = !productoMostrado ? detalleProd.NombreProducto : "";
+                        productoMostrado = true;
+                        string SubProductoMostrar = primersubproducto ? detalleProd.NombreSubProducto : "";
+                        primersubproducto = false;
+                        decimal CantidadMostrar = Cantidad ? detalleProd.CantidadPorcionesP : 0;
+                        Cantidad = false;
+
+                        // Si CantidadMostrar es 0, mostrar cadena vacía
+                        string cantidadMostrarStr = CantidadMostrar == 0 ? "" : CantidadMostrar.ToString();
+
+                        dgvDetallesSubP.Rows.Add(
+                            productoMostrar,
+                            SubProductoMostrar,
+                            cantidadMostrarStr,
+                            suministro.NombreSuministros,
+                            suministro.CantidadSuministro
+                        );
+                    }
+                }
+                else
+                {
+                    // Si no hay suministros, muestra solo el producto y subproducto
+                    dgvDetallesSubP.Rows.Add(
+                        detalleProd.NombreProducto,
+                        detalleProd.NombreSubProducto,
+                        detalleProd.CantidadPorcionesP,
+                        "", // Sin suministro
+                        ""  // Sin cantidad
+                    );
+                }
             }
         }
         private void frmPedido_Load(object sender, EventArgs e)
@@ -282,6 +353,40 @@ namespace Presentacion
             btnModificar.Enabled = true;
            btnCancelar.Enabled = true;
             btnNuevo.Enabled = false;
+        }
+
+        private void dgvPedidoCreado_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0 && e.ColumnIndex < dgvPedidoCreado.Columns.Count && dgvPedidoCreado.Columns[e.ColumnIndex].Name == "Opciones")
+            {
+                gbDetalles.Enabled = true;
+                btnCerrar.Enabled = true;
+                // OBTENER EL ID DE LA FILA SELECCIONADA
+                var row = dgvPedidoCreado.Rows[e.RowIndex];
+                int idPedido = Convert.ToInt32(row.Cells["IdPedido"].Value);
+
+                // OBTENER LOS DETALLES DE LA ORDEN
+                var detalles = new Pedidos_L().ListarPedidos().FirstOrDefault(p => p.IdPedido == idPedido);
+
+                if (detalles != null)
+                {
+                    // Llenar el DataGridView de detalles
+                    LlenarDetalleOrden(detalles);
+
+                    // Mostrar el GroupBox
+                    gbDetalles.Visible = true;
+                    gbDetalles.BringToFront();
+                }
+                else
+                {
+                    MessageBox.Show("No hay detalles disponibles para esta orden", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            gbDetalles.Visible = false;
         }
     }
 }

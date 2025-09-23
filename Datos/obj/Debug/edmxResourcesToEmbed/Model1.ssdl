@@ -9,6 +9,15 @@
     <Property Name="DescripcionCategoria" Type="varchar" MaxLength="128" Nullable="false" />
     <Property Name="EstadoCategoria" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="CategoriaSubProducto">
+    <Key>
+      <PropertyRef Name="IdCategoriaSP" />
+    </Key>
+    <Property Name="IdCategoriaSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NombreCategoriaSP" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="DescripcionCategoriaSP" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="EstadoCategoriaSP" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="Clientes">
     <Key>
       <PropertyRef Name="IdCliente" />
@@ -136,6 +145,7 @@
     <Property Name="Instrucciones" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="CostoSubProducto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
     <Property Name="EstadoSubProducto" Type="bit" Nullable="false" />
+    <Property Name="IdCategoriaSP" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Suministros">
     <Key>
@@ -374,6 +384,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SubProducto_CategoriaSubProducto">
+    <End Role="CategoriaSubProducto" Type="Self.CategoriaSubProducto" Multiplicity="1" />
+    <End Role="SubProducto" Type="Self.SubProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CategoriaSubProducto">
+        <PropertyRef Name="IdCategoriaSP" />
+      </Principal>
+      <Dependent Role="SubProducto">
+        <PropertyRef Name="IdCategoriaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Suministros_Proveedores">
     <End Role="Proveedores" Type="Self.Proveedores" Multiplicity="1" />
     <End Role="Suministros" Type="Self.Suministros" Multiplicity="*" />
@@ -419,6 +441,7 @@
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="remiModelStoreContainer">
     <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CategoriaSubProducto" EntityType="Self.CategoriaSubProducto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetalleOrden" EntityType="Self.DetalleOrden" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="DetallePedidoP" EntityType="Self.DetallePedidoP" Schema="dbo" store:Type="Tables" />
@@ -498,6 +521,10 @@
     <AssociationSet Name="FK_Producto_Categorias" Association="Self.FK_Producto_Categorias">
       <End Role="Categorias" EntitySet="Categorias" />
       <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubProducto_CategoriaSubProducto" Association="Self.FK_SubProducto_CategoriaSubProducto">
+      <End Role="CategoriaSubProducto" EntitySet="CategoriaSubProducto" />
+      <End Role="SubProducto" EntitySet="SubProducto" />
     </AssociationSet>
     <AssociationSet Name="FK_Suministros_Proveedores" Association="Self.FK_Suministros_Proveedores">
       <End Role="Proveedores" EntitySet="Proveedores" />

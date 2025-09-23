@@ -24,6 +24,13 @@ namespace Presentacion
             this.productoSeleccionado = detalles;
         }
 
+        // Constructor adicional
+        public frmDetalleOrden()
+        {
+            InitializeComponent();
+        }
+
+
         private void CargarSubproductos()
         {
             try
@@ -117,13 +124,22 @@ namespace Presentacion
             try
             {
                 clbSubProducto.Items.Clear();
-                var subproductosactivos = new SubProductos_L().ListarSubProductosActivos();
+                var subproductosactivos = new SubProductos_L().ListarSubProductosActivos().Where(s => s.IdCategoriaSP != 1).ToList();
                 foreach (var sub in subproductosactivos)
                 {
                     clbSubProducto.Items.Add(sub, false); // Agrega el objeto completo, puedes mostrar el nombre con DisplayMember
                 }
                 clbSubProducto.DisplayMember = "NombreSubProducto";
                 clbSubProducto.ValueMember = "IdSubProducto";
+
+                clbBebidas.Items.Clear();
+                var bebidasActivas = new SubProductos_L().ListarSubProductosActivos().Where(s => s.IdCategoriaSP == 1).ToList();
+                foreach (var bebida in bebidasActivas)
+                {
+                    clbBebidas.Items.Add(bebida, false);
+                }
+                clbBebidas.DisplayMember = "NombreSubProducto";
+                clbBebidas.ValueMember = "IdSubProducto";
 
 
             }
@@ -166,7 +182,7 @@ namespace Presentacion
                             "",
                             subproducto.NombreSubProducto,
                             productoSeleccionado.CantidadPorcionesP,
-                            productoSeleccionado.CostoSubProducto
+                            subproducto.CostoSubProducto
                         );
 
                         // Supón que tienes el costo unitario en subproducto.CostoSubProducto
@@ -246,6 +262,12 @@ namespace Presentacion
                         .FirstOrDefault(s => s.IdSubProducto == idSubProducto);
                     if (subproducto != null)
                         precioUnitario = subproducto.CostoSubProducto * 1.5m;
+
+                    var bebidas = clbBebidas.Items
+                        .OfType<SubProductos_E>()
+                        .FirstOrDefault(s => s.IdSubProducto == idSubProducto);
+                    if(bebidas != null)
+                        precioUnitario = bebidas.CostoSubProducto * 1.5m;
                 }
 
                 // Actualiza el precio
@@ -292,6 +314,58 @@ namespace Presentacion
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void clbBebidas_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            this.BeginInvoke((Action)(() =>
+            {
+                var bebida = clbBebidas.Items[e.Index] as SubProductos_E;
+                if (e.NewValue == CheckState.Checked)
+                {
+                    // Si se marca, agregar al DataGridView (evita duplicados)
+                    bool existe = false;
+                    foreach (DataGridViewRow row in dgvDetalleOrden.Rows)
+                    {
+                        if (row.Cells["IdSubProducto"].Value != null &&
+                            Convert.ToInt32(row.Cells["IdSubProducto"].Value) == bebida.IdSubProducto)
+                        {
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (!existe)
+                    {
+                        int rowIndex = dgvDetalleOrden.Rows.Add(
+                            productoSeleccionado.IdProducto,
+                            bebida.IdSubProducto,
+                            "",
+                            bebida.NombreSubProducto,
+                            productoSeleccionado.CantidadPorcionesP,
+                            bebida.CostoSubProducto
+                        );
+
+                        // Supón que tienes el costo unitario en subproducto.CostoSubProducto
+                        decimal precioUnitario = bebida.CostoSubProducto * 1.5m;
+                        int cantidad = productoSeleccionado.CantidadPorcionesP;
+
+                        dgvDetalleOrden.Rows[rowIndex].Cells["PrecioSubProducto"].Value = precioUnitario * cantidad;
+                    }
+                }
+                else
+                {
+                    // Si se desmarca, eliminar del DataGridView
+                    foreach (DataGridViewRow row in dgvDetalleOrden.Rows)
+                    {
+                        if (row.Cells["IdSubProducto"].Value != null &&
+                            Convert.ToInt32(row.Cells["IdSubProducto"].Value) == bebida.IdSubProducto)
+                        {
+                            dgvDetalleOrden.Rows.Remove(row);
+                            break;
+                        }
+                    }
+                }
+            }));
         }
     }
 }

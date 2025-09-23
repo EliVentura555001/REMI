@@ -283,5 +283,35 @@ namespace Logica
                 return detalles;
             }
         }
+        public List<Pedidos_E> ObtenerDetallePedidoPorPedido(int idPedido)
+        {
+            using (var db = new remiEntities())
+            {
+                var detalleSP = db.Pedido
+                    .Where(d => d.IdPedido == idPedido)
+                    .OrderBy(d => d.IdPedido)
+                    .Select(d => new Pedidos_E
+                    {
+                    DescripcionPedido = d.DescripcionPedido,
+                    FechaPedido = d.FechaPedido,
+                        DetallePedido = d.DetallePedidoP
+                        .Select(s => new DetalleProducto_E
+                        {
+                            NombreProducto = s.Producto.NombreProducto,
+                            NombreSubProducto = s.SubProducto.NombreSubProducto,
+                            CantidadPorcionesP = s.CantidadPorciones
+                        })
+                        .ToList(),
+                    DetallePedidoSP = d.DetallePedidoSP
+                        .Select(f => new DetalleSubProducto_E
+                        {
+                            NombreSuministros = f.Suministros.NombreSuministro,
+                            CantidadSuministro = f.CantidadSuministroPSP
+                        })
+                        .ToList()
+                }).ToList();
+                return detalleSP;
+            }
+        }
     }
 }

@@ -32,6 +32,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lblProducto = new System.Windows.Forms.Label();
             this.btnModificar = new System.Windows.Forms.Button();
             this.dtpPedido = new System.Windows.Forms.DateTimePicker();
@@ -48,11 +50,16 @@
             this.lblCProducto = new System.Windows.Forms.Label();
             this.txtDPedido = new System.Windows.Forms.TextBox();
             this.lblDPedido = new System.Windows.Forms.Label();
+            this.gbDetalles = new System.Windows.Forms.GroupBox();
+            this.btnCerrar = new System.Windows.Forms.Button();
+            this.dgvDetallesSubP = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedidoCreado)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCProducto)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedido)).BeginInit();
+            this.gbDetalles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesSubP)).BeginInit();
             this.SuspendLayout();
             // 
             // lblProducto
@@ -113,6 +120,7 @@
             this.dgvPedidoCreado.RowTemplate.Height = 24;
             this.dgvPedidoCreado.Size = new System.Drawing.Size(495, 414);
             this.dgvPedidoCreado.TabIndex = 78;
+            this.dgvPedidoCreado.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidoCreado_CellClick);
             this.dgvPedidoCreado.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPedidoCreado_CellDoubleClick);
             // 
             // groupBox1
@@ -280,11 +288,67 @@
             this.lblDPedido.TabIndex = 77;
             this.lblDPedido.Text = "Descripcion";
             // 
+            // gbDetalles
+            // 
+            this.gbDetalles.Controls.Add(this.btnCerrar);
+            this.gbDetalles.Controls.Add(this.dgvDetallesSubP);
+            this.gbDetalles.Enabled = false;
+            this.gbDetalles.Location = new System.Drawing.Point(201, 1);
+            this.gbDetalles.Name = "gbDetalles";
+            this.gbDetalles.Size = new System.Drawing.Size(871, 570);
+            this.gbDetalles.TabIndex = 80;
+            this.gbDetalles.TabStop = false;
+            this.gbDetalles.Text = "Detalles de la Orden";
+            this.gbDetalles.Visible = false;
+            // 
+            // btnCerrar
+            // 
+            this.btnCerrar.Enabled = false;
+            this.btnCerrar.FlatAppearance.BorderSize = 2;
+            this.btnCerrar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnCerrar.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCerrar.Location = new System.Drawing.Point(301, 532);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(90, 31);
+            this.btnCerrar.TabIndex = 79;
+            this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
+            // 
+            // dgvDetallesSubP
+            // 
+            this.dgvDetallesSubP.AllowUserToAddRows = false;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDetallesSubP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvDetallesSubP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDetallesSubP.Location = new System.Drawing.Point(6, 29);
+            this.dgvDetallesSubP.Name = "dgvDetallesSubP";
+            this.dgvDetallesSubP.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvDetallesSubP.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvDetallesSubP.RowHeadersWidth = 51;
+            this.dgvDetallesSubP.RowTemplate.Height = 24;
+            this.dgvDetallesSubP.Size = new System.Drawing.Size(859, 497);
+            this.dgvDetallesSubP.TabIndex = 87;
+            // 
             // frmPedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1108, 647);
+            this.Controls.Add(this.gbDetalles);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -300,6 +364,8 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCProducto)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPedido)).EndInit();
+            this.gbDetalles.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesSubP)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -321,5 +387,8 @@
         private System.Windows.Forms.Label lblCProducto;
         private System.Windows.Forms.TextBox txtDPedido;
         private System.Windows.Forms.Label lblDPedido;
+        private System.Windows.Forms.GroupBox gbDetalles;
+        private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.DataGridView dgvDetallesSubP;
     }
 }

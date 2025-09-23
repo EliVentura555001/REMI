@@ -19,7 +19,7 @@ namespace Datos
         public decimal CantidadSuministro { get; set; }
         public decimal CostoSuministro { get; set; }
     
-        public virtual Suministros Suministros { get; set; }
         public virtual SubProducto SubProducto { get; set; }
+        public virtual Suministros Suministros { get; set; }
     }
 }

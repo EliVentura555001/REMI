@@ -56,6 +56,9 @@
     <Compile Include="Categorias.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="CategoriaSubProducto.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Clientes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

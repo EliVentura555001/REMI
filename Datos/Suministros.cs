@@ -17,8 +17,8 @@ namespace Datos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Suministros()
         {
-            this.DetalleSubProducto = new HashSet<DetalleSubProducto>();
             this.DetallePedidoSP = new HashSet<DetallePedidoSP>();
+            this.DetalleSubProducto = new HashSet<DetalleSubProducto>();
         }
     
         public int IdSuministro { get; set; }
@@ -33,9 +33,9 @@ namespace Datos
         public decimal PresentacionSuministro { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetallePedidoSP> DetallePedidoSP { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleSubProducto> DetalleSubProducto { get; set; }
         public virtual Proveedores Proveedores { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetallePedidoSP> DetallePedidoSP { get; set; }
     }
 }
