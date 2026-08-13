@@ -12,29 +12,26 @@ namespace Datos
     using System;
     using System.Collections.Generic;
     
-    public partial class Pedido
+    public partial class SubPedido
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Pedido()
+        public SubPedido()
         {
-            this.DetalleOrden = new HashSet<DetalleOrden>();
             this.DetallePedidoP = new HashSet<DetallePedidoP>();
             this.DetallePedidoSP = new HashSet<DetallePedidoSP>();
-            this.SubPedido = new HashSet<SubPedido>();
         }
     
+        public int IdSubPedido { get; set; }
         public int IdPedido { get; set; }
-        public string DescripcionPedido { get; set; }
-        public System.DateTime FechaPedido { get; set; }
-        public Nullable<System.DateTime> FechaModPedido { get; set; }
+        public int IdUsuario { get; set; }
+        public byte[] FechaSubPedido { get; set; }
+        public string EstadoSubPedido { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetallePedidoP> DetallePedidoP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetallePedidoSP> DetallePedidoSP { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubPedido> SubPedido { get; set; }
+        public virtual Pedido Pedido { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

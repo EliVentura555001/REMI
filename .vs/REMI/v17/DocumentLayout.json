@@ -3,32 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\presentacion\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|solutionrelative:presentacion\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{3D22403D-8965-425D-B60D-A7A919AAB7B3}|Logica\\Logica.csproj|C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\logica\\pedidos_l.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3D22403D-8965-425D-B60D-A7A919AAB7B3}|Logica\\Logica.csproj|solutionrelative:logica\\pedidos_l.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|c:\\users\\microsoft windows\\source\\repos\\remi\\presentacion\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|solutionrelative:presentacion\\frmprincipal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D22403D-8965-425D-B60D-A7A919AAB7B3}|Logica\\Logica.csproj|C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\logica\\ordenes_l.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{3D22403D-8965-425D-B60D-A7A919AAB7B3}|Logica\\Logica.csproj|c:\\users\\microsoft windows\\source\\repos\\remi\\logica\\ordenes_l.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3D22403D-8965-425D-B60D-A7A919AAB7B3}|Logica\\Logica.csproj|solutionrelative:logica\\ordenes_l.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\presentacion\\frmorden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|solutionrelative:presentacion\\frmorden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\presentacion\\frmpedido.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|solutionrelative:presentacion\\frmpedido.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\presentacion\\frmdetalleorden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|solutionrelative:presentacion\\frmdetalleorden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{D092FD16-EB56-4660-8B52-AF9267B7A1BB}|Entidades\\Entidades.csproj|C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\entidades\\detallepedidop_e.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D092FD16-EB56-4660-8B52-AF9267B7A1BB}|Entidades\\Entidades.csproj|solutionrelative:entidades\\detallepedidop_e.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\presentacion\\frmdetalleorden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0F25327A-84C9-484B-9848-8823306B1CC9}|Presentacion\\Presentacion.csproj|solutionrelative:presentacion\\frmdetalleorden.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3D22403D-8965-425D-B60D-A7A919AAB7B3}|Logica\\Logica.csproj|C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\logica\\subproductos_l.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3D22403D-8965-425D-B60D-A7A919AAB7B3}|Logica\\Logica.csproj|solutionrelative:logica\\subproductos_l.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D092FD16-EB56-4660-8B52-AF9267B7A1BB}|Entidades\\Entidades.csproj|C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\entidades\\detallepedidosp_e.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D092FD16-EB56-4660-8B52-AF9267B7A1BB}|Entidades\\Entidades.csproj|solutionrelative:entidades\\detallepedidosp_e.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +30,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -58,87 +50,64 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "frmPrincipal.cs",
-              "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmPrincipal.cs",
-              "RelativeDocumentMoniker": "Presentacion\\frmPrincipal.cs",
-              "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmPrincipal.cs",
-              "RelativeToolTip": "Presentacion\\frmPrincipal.cs",
-              "ViewState": "AgIAAA8AAAAAAAAAAAA5wB0AAAAMAAAAAAAAAA==",
+              "DocumentIndex": 3,
+              "Title": "DetallePedidoP_E.cs",
+              "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Entidades\\DetallePedidoP_E.cs",
+              "RelativeDocumentMoniker": "Entidades\\DetallePedidoP_E.cs",
+              "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Entidades\\DetallePedidoP_E.cs",
+              "RelativeToolTip": "Entidades\\DetallePedidoP_E.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T14:16:02.142Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-09-24T22:08:38.878Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DetallePedidoSP_E.cs",
+              "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Entidades\\DetallePedidoSP_E.cs",
+              "RelativeDocumentMoniker": "Entidades\\DetallePedidoSP_E.cs",
+              "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Entidades\\DetallePedidoSP_E.cs",
+              "RelativeToolTip": "Entidades\\DetallePedidoSP_E.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:08:37.333Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "frmPrincipal.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmPrincipal.cs",
-              "RelativeDocumentMoniker": "Presentacion\\frmPrincipal.cs",
-              "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmPrincipal.cs [Dise\u00F1o]",
-              "RelativeToolTip": "Presentacion\\frmPrincipal.cs [Dise\u00F1o]",
+              "Title": "Pedidos_L.cs",
+              "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Logica\\Pedidos_L.cs",
+              "RelativeDocumentMoniker": "Logica\\Pedidos_L.cs",
+              "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Logica\\Pedidos_L.cs",
+              "RelativeToolTip": "Logica\\Pedidos_L.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-14T14:15:58.992Z",
-              "EditorCaption": " [Dise\u00F1o]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "frmOrden.cs",
-              "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmOrden.cs",
-              "RelativeDocumentMoniker": "Presentacion\\frmOrden.cs",
-              "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmOrden.cs",
-              "RelativeToolTip": "Presentacion\\frmOrden.cs",
-              "ViewState": "AgIAAOEAAAAAAAAAAAAwwDsBAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-26T04:20:30.953Z"
+              "WhenOpened": "2025-09-24T22:08:25.644Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "frmPedido.cs [Dise\u00F1o]",
+              "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmPedido.cs",
+              "RelativeDocumentMoniker": "Presentacion\\frmPedido.cs",
+              "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmPedido.cs [Dise\u00F1o]",
+              "RelativeToolTip": "Presentacion\\frmPedido.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-24T22:08:03.813Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Ordenes_L.cs",
               "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Logica\\Ordenes_L.cs",
               "RelativeDocumentMoniker": "Logica\\Ordenes_L.cs",
               "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Logica\\Ordenes_L.cs",
               "RelativeToolTip": "Logica\\Ordenes_L.cs",
-              "ViewState": "AgIAANQAAAAAAAAAAAAYwAwAAABSAAAAAAAAAA==",
+              "ViewState": "AgIAAKgAAAAAAAAAAAA8wMIAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-25T03:38:21.469Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "frmDetalleOrden.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmDetalleOrden.cs",
-              "RelativeDocumentMoniker": "Presentacion\\frmDetalleOrden.cs",
-              "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmDetalleOrden.cs [Dise\u00F1o]",
-              "RelativeToolTip": "Presentacion\\frmDetalleOrden.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-25T03:08:09.061Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "SubProductos_L.cs",
-              "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Logica\\SubProductos_L.cs",
-              "RelativeDocumentMoniker": "Logica\\SubProductos_L.cs",
-              "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Logica\\SubProductos_L.cs",
-              "RelativeToolTip": "Logica\\SubProductos_L.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAKwAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-25T03:01:50.802Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "frmDetalleOrden.cs",
-              "DocumentMoniker": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmDetalleOrden.cs",
-              "RelativeDocumentMoniker": "Presentacion\\frmDetalleOrden.cs",
-              "ToolTip": "C:\\Users\\Microsoft Windows\\source\\repos\\REMI\\Presentacion\\frmDetalleOrden.cs",
-              "RelativeToolTip": "Presentacion\\frmDetalleOrden.cs",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAwwA4BAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T22:12:39.761Z"
+              "WhenOpened": "2025-08-25T03:38:21.469Z",
+              "EditorCaption": ""
             }
           ]
         }

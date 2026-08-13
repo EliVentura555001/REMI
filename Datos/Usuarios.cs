@@ -14,6 +14,12 @@ namespace Datos
     
     public partial class Usuarios
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Usuarios()
+        {
+            this.SubPedido = new HashSet<SubPedido>();
+        }
+    
         public int IdUsuario { get; set; }
         public string NombreUsuario { get; set; }
         public int IdRol { get; set; }
@@ -22,5 +28,7 @@ namespace Datos
         public bool EstadoUsuario { get; set; }
     
         public virtual Roles Roles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SubPedido> SubPedido { get; set; }
     }
 }

@@ -19,9 +19,11 @@ namespace Datos
         public int IdPedido { get; set; }
         public int CantidadPorciones { get; set; }
         public decimal CostoSubProducto { get; set; }
+        public Nullable<int> IdSubPedido { get; set; }
     
         public virtual Pedido Pedido { get; set; }
         public virtual Producto Producto { get; set; }
         public virtual SubProducto SubProducto { get; set; }
+        public virtual SubPedido SubPedido { get; set; }
     }
 }

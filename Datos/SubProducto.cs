@@ -32,6 +32,7 @@ namespace Datos
         public bool EstadoSubProducto { get; set; }
         public int IdCategoriaSP { get; set; }
     
+        public virtual CategoriaSubProducto CategoriaSubProducto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -42,6 +43,5 @@ namespace Datos
         public virtual ICollection<DetalleProducto> DetalleProducto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleSubProducto> DetalleSubProducto { get; set; }
-        public virtual CategoriaSubProducto CategoriaSubProducto { get; set; }
     }
 }

@@ -28,6 +28,7 @@ namespace Datos
         }
     
         public virtual DbSet<Categorias> Categorias { get; set; }
+        public virtual DbSet<CategoriaSubProducto> CategoriaSubProducto { get; set; }
         public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<DetalleOrden> DetalleOrden { get; set; }
         public virtual DbSet<DetallePedidoP> DetallePedidoP { get; set; }
@@ -39,12 +40,10 @@ namespace Datos
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<Proveedores> Proveedores { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<SubPedido> SubPedido { get; set; }
         public virtual DbSet<SubProducto> SubProducto { get; set; }
         public virtual DbSet<Suministros> Suministros { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
-        public virtual DbSet<Utensilios> Utensilios { get; set; }
-        public virtual DbSet<CategoriaSubProducto> CategoriaSubProducto { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
