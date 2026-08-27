@@ -182,7 +182,19 @@ namespace Logica
                         db.Ordenes.Add(NuevaOrden);
                         db.SaveChanges();
 
-                        // Lista para almacenar los detalles a guardar
+                        // Si no hay detalles, nada que procesar
+                        if (datosNuevaOrden.DetalleOrden == null || !datosNuevaOrden.DetalleOrden.Any())
+                        {
+                            db.SaveChanges();
+                            trans.Commit();
+                            mensajeError = string.Empty;
+                            return true;
+                        }
+
+                        // Creamos un SubPedido asociado a esta Orden sólo si vamos a mover porciones
+                        SubPedido nuevoSubPedido = null;
+                        bool necesitaSubPedido = datosNuevaOrden.DetalleOrden.Any(d => d.CantidadPorciones > 0);
+
                         var detallesOrdenAGuardar = new List<DetalleOrden>();
 
                         foreach (var detalle in datosNuevaOrden.DetalleOrden)
@@ -196,11 +208,26 @@ namespace Logica
 
                             int cantidadRestante = detalle.CantidadPorciones;
 
-                            // Buscar pedidos con porciones disponibles para este subproducto
+                            // Buscar pedidos con porciones disponibles para este subproducto (orden FIFO por IdPedido)
                             var pedidos = db.DetallePedidoP
                                 .Where(d => d.IdSubProducto == detalle.IdSubProducto && d.CantidadPorciones > 0)
                                 .OrderBy(d => d.IdPedido)
                                 .ToList();
+
+                            if (cantidadRestante > 0 && necesitaSubPedido && nuevoSubPedido == null)
+                            {
+                                // Crear el subpedido vinculado a la orden
+                                nuevoSubPedido = new SubPedido()
+                                {
+                                    IdPedido = pedidos.FirstOrDefault()?.IdPedido ?? 0,
+                                    IdOrden = NuevaOrden.IdOrden,
+                                    IdUsuario = 0, // asigna según contexto
+                                    FechaSubPedido = DateTime.Now,
+                                    EstadoSubPedido = "Pendiente" // lo marcamos pendiente hasta comprobar suministros
+                                };
+                                db.SubPedido.Add(nuevoSubPedido);
+                                db.SaveChanges(); // para obtener IdSubPedido
+                            }
 
                             foreach (var pedido in pedidos)
                             {
@@ -208,11 +235,11 @@ namespace Logica
 
                                 int porcionesADeducir = Math.Min(pedido.CantidadPorciones, cantidadRestante);
 
-                                // Restar las porciones en la base de datos
+                                // Restar las porciones en el registro origen
                                 pedido.CantidadPorciones -= porcionesADeducir;
 
-                                // Crear el detalle de la orden con el IdPedido de donde se dedujo
-                                DetalleOrden nuevoDetalle = new DetalleOrden()
+                                // Registrar en DetalleOrden (como antes)
+                                DetalleOrden nuevoDetalleOrden = new DetalleOrden()
                                 {
                                     IdPedido = pedido.IdPedido,
                                     IdOrden = NuevaOrden.IdOrden,
@@ -221,12 +248,68 @@ namespace Logica
                                     CantidadPorciones = porcionesADeducir,
                                     PrecioOrden = detalle.PrecioOrden
                                 };
-                                detallesOrdenAGuardar.Add(nuevoDetalle);
+                                detallesOrdenAGuardar.Add(nuevoDetalleOrden);
+
+                                // Registrar movimiento en DetallePedidoP apuntando a IdSubPedido (si creamos uno)
+                                if (nuevoSubPedido != null)
+                                {
+                                    var movimientoDetallePedidoP = new DetallePedidoP()
+                                    {
+                                        IdPedido = pedido.IdPedido,
+                                        IdProducto = detalle.IdProducto,
+                                        IdSubProducto = detalle.IdSubProducto,
+                                        CantidadPorciones = porcionesADeducir,
+                                        CostoSubProducto = 0m,
+                                        IdSubPedido = nuevoSubPedido.IdSubPedido
+                                    };
+                                    db.DetallePedidoP.Add(movimientoDetallePedidoP);
+
+                                    // Intentar crear DetallePedidoSP proporcional y restar suministros
+                                    var detallesSPOrigen = db.DetallePedidoSP
+                                        .Where(s => s.IdPedido == pedido.IdPedido && s.IdSubProducto == detalle.IdSubProducto)
+                                        .ToList();
+
+                                    if (detallesSPOrigen.Any())
+                                    {
+                                        // calcular porciones totales originales para ese subproducto (para repartir proporcionalmente)
+                                        int porcionesTotalesOrigen = db.DetallePedidoP
+                                            .Where(x => x.IdPedido == pedido.IdPedido && x.IdSubProducto == detalle.IdSubProducto)
+                                            .Sum(x => x.CantidadPorciones);
+
+                                        // evitar división por cero
+                                        if (porcionesTotalesOrigen > 0)
+                                        {
+                                            foreach (var spOrigen in detallesSPOrigen)
+                                            {
+                                                decimal cantidadSuministroPorPorcion = spOrigen.CantidadSuministroPSP / (decimal)porcionesTotalesOrigen;
+                                                decimal cantidadSuministroADeducir = Math.Round(cantidadSuministroPorPorcion * porcionesADeducir, 4);
+
+                                                var nuevoDetalleSP = new DetallePedidoSP()
+                                                {
+                                                    IdPedido = pedido.IdPedido,
+                                                    IdSubProducto = detalle.IdSubProducto,
+                                                    IdSuministro = spOrigen.IdSuministro,
+                                                    CantidadSuministroPSP = cantidadSuministroADeducir,
+                                                    CostoParcialPSP = spOrigen.CostoParcialPSP * (cantidadSuministroADeducir / (spOrigen.CantidadSuministroPSP == 0 ? 1 : spOrigen.CantidadSuministroPSP))
+                                                };
+                                                db.DetallePedidoSP.Add(nuevoDetalleSP);
+
+                                                // Restar existencias de suministros en la misma transacción
+                                                if (!new Suministros_L().RestarExistencia(spOrigen.IdSuministro, cantidadSuministroADeducir, db, ref mensajeError))
+                                                {
+                                                    trans.Rollback();
+                                                    return false;
+                                                }
+                                            }
+                                        }
+                                        // si porcionesTotalesOrigen == 0, no hacemos nada con suministros (déjalo explícito)
+                                    }
+                                }
 
                                 cantidadRestante -= porcionesADeducir;
                             }
 
-                            // Si no hay suficientes porciones, cancelar la transacción
+                            // Si no se pudo cubrir la cantidad pedida -> rollback
                             if (cantidadRestante > 0)
                             {
                                 mensajeError = $"No hay suficientes porciones disponibles para el subproducto {detalle.IdSubProducto}.";

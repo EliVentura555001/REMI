@@ -31,10 +31,7 @@
   </EntityType>
   <EntityType Name="DetalleOrden">
     <Key>
-      <PropertyRef Name="IdPedido" />
       <PropertyRef Name="IdOrden" />
-      <PropertyRef Name="IdSubProducto" />
-      <PropertyRef Name="IdProducto" />
     </Key>
     <Property Name="IdPedido" Type="int" Nullable="false" />
     <Property Name="IdOrden" Type="int" Nullable="false" />
@@ -54,6 +51,7 @@
     <Property Name="IdPedido" Type="int" Nullable="false" />
     <Property Name="CantidadPorciones" Type="int" Nullable="false" />
     <Property Name="CostoSubProducto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="IdSubPedido" Type="int" />
   </EntityType>
   <EntityType Name="DetallePedidoSP">
     <Key>
@@ -66,6 +64,7 @@
     <Property Name="IdSuministro" Type="int" Nullable="false" />
     <Property Name="CantidadSuministroPSP" Type="decimal" Precision="10" Scale="4" Nullable="false" />
     <Property Name="CostoParcialPSP" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="IdSubPedido" Type="int" />
   </EntityType>
   <EntityType Name="DetalleProducto">
     <Key>
@@ -134,6 +133,17 @@
     <Property Name="IdRol" Type="int" Nullable="false" />
     <Property Name="NombreRol" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="EstadoRol" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubPedido">
+    <Key>
+      <PropertyRef Name="IdSubPedido" />
+    </Key>
+    <Property Name="IdSubPedido" Type="int" Nullable="false" />
+    <Property Name="IdPedido" Type="int" Nullable="false" />
+    <Property Name="IdOrden" Type="int" Nullable="false" />
+    <Property Name="IdUsuario" Type="int" Nullable="false" />
+    <Property Name="FechaSubPedido" Type="datetime" Nullable="false" />
+    <Property Name="EstadoSubPedido" Type="varchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="SubProducto">
     <Key>
@@ -206,7 +216,7 @@
   </Association>
   <Association Name="FK_DetalleOrden_Ordenes">
     <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="1" />
-    <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="*" />
+    <End Role="DetalleOrden" Type="Self.DetalleOrden" Multiplicity="0..1" />
     <ReferentialConstraint>
       <Principal Role="Ordenes">
         <PropertyRef Name="IdOrden" />
@@ -372,6 +382,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="fk_pedido">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SubPedido" Type="Self.SubPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="IdPedido" />
+      </Principal>
+      <Dependent Role="SubPedido">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Producto_Categorias">
     <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
     <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
@@ -381,6 +405,42 @@
       </Principal>
       <Dependent Role="Producto">
         <PropertyRef Name="IdCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SubPedido_Ordenes">
+    <End Role="Ordenes" Type="Self.Ordenes" Multiplicity="1" />
+    <End Role="SubPedido" Type="Self.SubPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ordenes">
+        <PropertyRef Name="IdOrden" />
+      </Principal>
+      <Dependent Role="SubPedido">
+        <PropertyRef Name="IdOrden" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_subpedido_producto">
+    <End Role="SubPedido" Type="Self.SubPedido" Multiplicity="0..1" />
+    <End Role="DetallePedidoP" Type="Self.DetallePedidoP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubPedido">
+        <PropertyRef Name="IdSubPedido" />
+      </Principal>
+      <Dependent Role="DetallePedidoP">
+        <PropertyRef Name="IdSubPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_subpedido_subproducto">
+    <End Role="SubPedido" Type="Self.SubPedido" Multiplicity="0..1" />
+    <End Role="DetallePedidoSP" Type="Self.DetallePedidoSP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubPedido">
+        <PropertyRef Name="IdSubPedido" />
+      </Principal>
+      <Dependent Role="DetallePedidoSP">
+        <PropertyRef Name="IdSubPedido" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -405,6 +465,20 @@
       </Principal>
       <Dependent Role="Suministros">
         <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_usuario">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SubPedido" Type="Self.SubPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="SubPedido">
+        <PropertyRef Name="IdUsuario" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -453,6 +527,7 @@
     <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Proveedores" EntityType="Self.Proveedores" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubPedido" EntityType="Self.SubPedido" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SubProducto" EntityType="Self.SubProducto" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Suministros" EntityType="Self.Suministros" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -518,9 +593,25 @@
       <End Role="Suministros" EntitySet="Suministros" />
       <End Role="DetalleSubProducto" EntitySet="DetalleSubProducto" />
     </AssociationSet>
+    <AssociationSet Name="fk_pedido" Association="Self.fk_pedido">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="SubPedido" EntitySet="SubPedido" />
+    </AssociationSet>
     <AssociationSet Name="FK_Producto_Categorias" Association="Self.FK_Producto_Categorias">
       <End Role="Categorias" EntitySet="Categorias" />
       <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SubPedido_Ordenes" Association="Self.FK_SubPedido_Ordenes">
+      <End Role="Ordenes" EntitySet="Ordenes" />
+      <End Role="SubPedido" EntitySet="SubPedido" />
+    </AssociationSet>
+    <AssociationSet Name="fk_subpedido_producto" Association="Self.fk_subpedido_producto">
+      <End Role="SubPedido" EntitySet="SubPedido" />
+      <End Role="DetallePedidoP" EntitySet="DetallePedidoP" />
+    </AssociationSet>
+    <AssociationSet Name="fk_subpedido_subproducto" Association="Self.fk_subpedido_subproducto">
+      <End Role="SubPedido" EntitySet="SubPedido" />
+      <End Role="DetallePedidoSP" EntitySet="DetallePedidoSP" />
     </AssociationSet>
     <AssociationSet Name="FK_SubProducto_CategoriaSubProducto" Association="Self.FK_SubProducto_CategoriaSubProducto">
       <End Role="CategoriaSubProducto" EntitySet="CategoriaSubProducto" />
@@ -529,6 +620,10 @@
     <AssociationSet Name="FK_Suministros_Proveedores" Association="Self.FK_Suministros_Proveedores">
       <End Role="Proveedores" EntitySet="Proveedores" />
       <End Role="Suministros" EntitySet="Suministros" />
+    </AssociationSet>
+    <AssociationSet Name="fk_usuario" Association="Self.fk_usuario">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="SubPedido" EntitySet="SubPedido" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

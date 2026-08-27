@@ -65,6 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedores_E.cs" />
     <Compile Include="Roles_E.cs" />
+    <Compile Include="SubPedidos_E.cs" />
     <Compile Include="SubProductos_E.cs" />
     <Compile Include="Suministros_E.cs" />
     <Compile Include="Usuarios_E.cs" />

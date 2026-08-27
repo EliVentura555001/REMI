@@ -17,9 +17,9 @@ namespace Datos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Producto()
         {
-            this.DetalleOrden = new HashSet<DetalleOrden>();
             this.DetallePedidoP = new HashSet<DetallePedidoP>();
             this.DetalleProducto = new HashSet<DetalleProducto>();
+            this.DetalleOrden = new HashSet<DetalleOrden>();
         }
     
         public int IdProducto { get; set; }
@@ -31,10 +31,10 @@ namespace Datos
     
         public virtual Categorias Categorias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetallePedidoP> DetallePedidoP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetalleProducto> DetalleProducto { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
     }
 }

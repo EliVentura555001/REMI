@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="remiModelStoreContainer" CdmEntityContainer="remiEntity">
+    <EntitySetMapping Name="Categorias">
+      <EntityTypeMapping TypeName="remiModel.Categorias">
+        <MappingFragment StoreEntitySet="Categorias">
+          <ScalarProperty Name="EstadoCategoria" ColumnName="EstadoCategoria" />
+          <ScalarProperty Name="DescripcionCategoria" ColumnName="DescripcionCategoria" />
+          <ScalarProperty Name="NombreCategoria" ColumnName="NombreCategoria" />
+          <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategoriaSubProducto">
+      <EntityTypeMapping TypeName="remiModel.CategoriaSubProducto">
+        <MappingFragment StoreEntitySet="CategoriaSubProducto">
+          <ScalarProperty Name="EstadoCategoriaSP" ColumnName="EstadoCategoriaSP" />
+          <ScalarProperty Name="DescripcionCategoriaSP" ColumnName="DescripcionCategoriaSP" />
+          <ScalarProperty Name="NombreCategoriaSP" ColumnName="NombreCategoriaSP" />
+          <ScalarProperty Name="IdCategoriaSP" ColumnName="IdCategoriaSP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="remiModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="EstadoCliente" ColumnName="EstadoCliente" />
+          <ScalarProperty Name="DireccionCliente" ColumnName="DireccionCliente" />
+          <ScalarProperty Name="CorreoCliente" ColumnName="CorreoCliente" />
+          <ScalarProperty Name="TelefonoCliente" ColumnName="TelefonoCliente" />
+          <ScalarProperty Name="NombreCliente" ColumnName="NombreCliente" />
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetallePedidoP">
+      <EntityTypeMapping TypeName="remiModel.DetallePedidoP">
+        <MappingFragment StoreEntitySet="DetallePedidoP">
+          <ScalarProperty Name="IdSubPedido" ColumnName="IdSubPedido" />
+          <ScalarProperty Name="CostoSubProducto" ColumnName="CostoSubProducto" />
+          <ScalarProperty Name="CantidadPorciones" ColumnName="CantidadPorciones" />
+          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetallePedidoSP">
+      <EntityTypeMapping TypeName="remiModel.DetallePedidoSP">
+        <MappingFragment StoreEntitySet="DetallePedidoSP">
+          <ScalarProperty Name="IdSubPedido" ColumnName="IdSubPedido" />
+          <ScalarProperty Name="CostoParcialPSP" ColumnName="CostoParcialPSP" />
+          <ScalarProperty Name="CantidadSuministroPSP" ColumnName="CantidadSuministroPSP" />
+          <ScalarProperty Name="IdSuministro" ColumnName="IdSuministro" />
+          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
+          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleProducto">
+      <EntityTypeMapping TypeName="remiModel.DetalleProducto">
+        <MappingFragment StoreEntitySet="DetalleProducto">
+          <ScalarProperty Name="CostoSubProducto" ColumnName="CostoSubProducto" />
+          <ScalarProperty Name="CantidadPorcionesP" ColumnName="CantidadPorcionesP" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleSubProducto">
+      <EntityTypeMapping TypeName="remiModel.DetalleSubProducto">
+        <MappingFragment StoreEntitySet="DetalleSubProducto">
+          <ScalarProperty Name="CostoSuministro" ColumnName="CostoSuministro" />
+          <ScalarProperty Name="CantidadSuministro" ColumnName="CantidadSuministro" />
+          <ScalarProperty Name="IdSuministro" ColumnName="IdSuministro" />
+          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ordenes">
+      <EntityTypeMapping TypeName="remiModel.Ordenes">
+        <MappingFragment StoreEntitySet="Ordenes">
+          <ScalarProperty Name="FechaModOrden" ColumnName="FechaModOrden" />
+          <ScalarProperty Name="FechaCreacionOrden" ColumnName="FechaCreacionOrden" />
+          <ScalarProperty Name="DescripcionOrden" ColumnName="DescripcionOrden" />
+          <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pedido">
+      <EntityTypeMapping TypeName="remiModel.Pedido">
+        <MappingFragment StoreEntitySet="Pedido">
+          <ScalarProperty Name="FechaModPedido" ColumnName="FechaModPedido" />
+          <ScalarProperty Name="FechaPedido" ColumnName="FechaPedido" />
+          <ScalarProperty Name="DescripcionPedido" ColumnName="DescripcionPedido" />
+          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="remiModel.Producto">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="EstadoProducto" ColumnName="EstadoProducto" />
+          <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+          <ScalarProperty Name="CostoProducto" ColumnName="CostoProducto" />
+          <ScalarProperty Name="DescripcionProducto" ColumnName="DescripcionProducto" />
+          <ScalarProperty Name="NombreProducto" ColumnName="NombreProducto" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Proveedores">
+      <EntityTypeMapping TypeName="remiModel.Proveedores">
+        <MappingFragment StoreEntitySet="Proveedores">
+          <ScalarProperty Name="EstadoProveedor" ColumnName="EstadoProveedor" />
+          <ScalarProperty Name="DireccionProveedor" ColumnName="DireccionProveedor" />
+          <ScalarProperty Name="CorreoProveedor" ColumnName="CorreoProveedor" />
+          <ScalarProperty Name="TelefonoProveedor" ColumnName="TelefonoProveedor" />
+          <ScalarProperty Name="NombreProveedor" ColumnName="NombreProveedor" />
+          <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="remiModel.Roles">
+        <MappingFragment StoreEntitySet="Roles">
+          <ScalarProperty Name="EstadoRol" ColumnName="EstadoRol" />
+          <ScalarProperty Name="NombreRol" ColumnName="NombreRol" />
+          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubPedido">
+      <EntityTypeMapping TypeName="remiModel.SubPedido">
+        <MappingFragment StoreEntitySet="SubPedido">
+          <ScalarProperty Name="EstadoSubPedido" ColumnName="EstadoSubPedido" />
+          <ScalarProperty Name="FechaSubPedido" ColumnName="FechaSubPedido" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
+          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+          <ScalarProperty Name="IdSubPedido" ColumnName="IdSubPedido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubProducto">
+      <EntityTypeMapping TypeName="remiModel.SubProducto">
+        <MappingFragment StoreEntitySet="SubProducto">
+          <ScalarProperty Name="IdCategoriaSP" ColumnName="IdCategoriaSP" />
+          <ScalarProperty Name="EstadoSubProducto" ColumnName="EstadoSubProducto" />
+          <ScalarProperty Name="CostoSubProducto" ColumnName="CostoSubProducto" />
+          <ScalarProperty Name="Instrucciones" ColumnName="Instrucciones" />
+          <ScalarProperty Name="DescripcionSubProducto" ColumnName="DescripcionSubProducto" />
+          <ScalarProperty Name="NombreSubProducto" ColumnName="NombreSubProducto" />
+          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Suministros">
+      <EntityTypeMapping TypeName="remiModel.Suministros">
+        <MappingFragment StoreEntitySet="Suministros">
+          <ScalarProperty Name="PresentacionSuministro" ColumnName="PresentacionSuministro" />
+          <ScalarProperty Name="ExistenciasSuministro" ColumnName="ExistenciasSuministro" />
+          <ScalarProperty Name="UnidadMedida" ColumnName="UnidadMedida" />
+          <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+          <ScalarProperty Name="EstadoSuministro" ColumnName="EstadoSuministro" />
+          <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+          <ScalarProperty Name="CostoSuministro" ColumnName="CostoSuministro" />
+          <ScalarProperty Name="DescripcionSuministro" ColumnName="DescripcionSuministro" />
+          <ScalarProperty Name="NombreSuministro" ColumnName="NombreSuministro" />
+          <ScalarProperty Name="IdSuministro" ColumnName="IdSuministro" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="remiModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="remiModel.Usuarios">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="EstadoUsuario" ColumnName="EstadoUsuario" />
+          <ScalarProperty Name="CorreoUsuario" ColumnName="CorreoUsuario" />
+          <ScalarProperty Name="TelefonoUsuario" ColumnName="TelefonoUsuario" />
+          <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+          <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utensilios">
+      <EntityTypeMapping TypeName="remiModel.Utensilios">
+        <MappingFragment StoreEntitySet="Utensilios">
+          <ScalarProperty Name="EstadoUtensilios" ColumnName="EstadoUtensilios" />
+          <ScalarProperty Name="DescripcionUtensilio" ColumnName="DescripcionUtensilio" />
+          <ScalarProperty Name="NombreUtensilio" ColumnName="NombreUtensilio" />
+          <ScalarProperty Name="IdUtensilio" ColumnName="IdUtensilio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DetalleOrden">
+      <EntityTypeMapping TypeName="remiModel.DetalleOrden">
+        <MappingFragment StoreEntitySet="DetalleOrden">
+          <ScalarProperty Name="PrecioOrden" ColumnName="PrecioOrden" />
+          <ScalarProperty Name="CantidadPorciones" ColumnName="CantidadPorciones" />
+          <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+          <ScalarProperty Name="IdSubProducto" ColumnName="IdSubProducto" />
+          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+          <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

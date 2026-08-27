@@ -17,9 +17,9 @@ namespace Datos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Pedido()
         {
-            this.DetalleOrden = new HashSet<DetalleOrden>();
             this.DetallePedidoP = new HashSet<DetallePedidoP>();
             this.DetallePedidoSP = new HashSet<DetallePedidoSP>();
+            this.DetalleOrden = new HashSet<DetalleOrden>();
             this.SubPedido = new HashSet<SubPedido>();
         }
     
@@ -29,11 +29,11 @@ namespace Datos
         public Nullable<System.DateTime> FechaModPedido { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetallePedidoP> DetallePedidoP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetallePedidoSP> DetallePedidoSP { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleOrden> DetalleOrden { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SubPedido> SubPedido { get; set; }
     }

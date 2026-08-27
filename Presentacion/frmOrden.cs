@@ -313,7 +313,7 @@ namespace Presentacion
         }
         private void dgvOrden_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0 && dgvOrden.Columns[e.ColumnIndex].Name == "Acciones")
+                if (e.RowIndex >= 0 && dgvOrden.Columns[e.ColumnIndex].Name == "Acciones")
             {
                 // Obtén la fila seleccionada
                 var row = dgvOrden.Rows[e.RowIndex];

@@ -23,14 +23,16 @@ namespace Datos
     
         public int IdSubPedido { get; set; }
         public int IdPedido { get; set; }
+        public int IdOrden { get; set; }
         public int IdUsuario { get; set; }
-        public byte[] FechaSubPedido { get; set; }
+        public System.DateTime FechaSubPedido { get; set; }
         public string EstadoSubPedido { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetallePedidoP> DetallePedidoP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DetallePedidoSP> DetallePedidoSP { get; set; }
+        public virtual Ordenes Ordenes { get; set; }
         public virtual Pedido Pedido { get; set; }
         public virtual Usuarios Usuarios { get; set; }
     }

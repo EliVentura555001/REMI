@@ -14,8 +14,8 @@ namespace Datos
     
     public partial class DetalleOrden
     {
-        public int IdPedido { get; set; }
         public int IdOrden { get; set; }
+        public int IdPedido { get; set; }
         public int IdSubProducto { get; set; }
         public int IdProducto { get; set; }
         public int CantidadPorciones { get; set; }

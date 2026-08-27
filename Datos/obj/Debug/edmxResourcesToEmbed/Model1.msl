@@ -35,6 +35,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="CategoriaSubProducto">
+      <EntityTypeMapping TypeName="remiModel.CategoriaSubProducto">
+        <MappingFragment StoreEntitySet="CategoriaSubProducto">
+          <ScalarProperty Name="EstadoCategoriaSP" ColumnName="EstadoCategoriaSP" />
+          <ScalarProperty Name="DescripcionCategoriaSP" ColumnName="DescripcionCategoriaSP" />
+          <ScalarProperty Name="NombreCategoriaSP" ColumnName="NombreCategoriaSP" />
+          <ScalarProperty Name="IdCategoriaSP" ColumnName="IdCategoriaSP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="Clientes">
       <EntityTypeMapping TypeName="remiModel.Clientes">
         <MappingFragment StoreEntitySet="Clientes">
@@ -62,6 +72,7 @@
     <EntitySetMapping Name="DetallePedidoP">
       <EntityTypeMapping TypeName="remiModel.DetallePedidoP">
         <MappingFragment StoreEntitySet="DetallePedidoP">
+          <ScalarProperty Name="IdSubPedido" ColumnName="IdSubPedido" />
           <ScalarProperty Name="CostoSubProducto" ColumnName="CostoSubProducto" />
           <ScalarProperty Name="CantidadPorciones" ColumnName="CantidadPorciones" />
           <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
@@ -73,6 +84,7 @@
     <EntitySetMapping Name="DetallePedidoSP">
       <EntityTypeMapping TypeName="remiModel.DetallePedidoSP">
         <MappingFragment StoreEntitySet="DetallePedidoSP">
+          <ScalarProperty Name="IdSubPedido" ColumnName="IdSubPedido" />
           <ScalarProperty Name="CostoParcialPSP" ColumnName="CostoParcialPSP" />
           <ScalarProperty Name="CantidadSuministroPSP" ColumnName="CantidadSuministroPSP" />
           <ScalarProperty Name="IdSuministro" ColumnName="IdSuministro" />
@@ -154,6 +166,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SubPedido">
+      <EntityTypeMapping TypeName="remiModel.SubPedido">
+        <MappingFragment StoreEntitySet="SubPedido">
+          <ScalarProperty Name="EstadoSubPedido" ColumnName="EstadoSubPedido" />
+          <ScalarProperty Name="FechaSubPedido" ColumnName="FechaSubPedido" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="IdOrden" ColumnName="IdOrden" />
+          <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+          <ScalarProperty Name="IdSubPedido" ColumnName="IdSubPedido" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="SubProducto">
       <EntityTypeMapping TypeName="remiModel.SubProducto">
         <MappingFragment StoreEntitySet="SubProducto">
@@ -213,16 +237,6 @@
           <ScalarProperty Name="DescripcionUtensilio" ColumnName="DescripcionUtensilio" />
           <ScalarProperty Name="NombreUtensilio" ColumnName="NombreUtensilio" />
           <ScalarProperty Name="IdUtensilio" ColumnName="IdUtensilio" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="CategoriaSubProducto">
-      <EntityTypeMapping TypeName="remiModel.CategoriaSubProducto">
-        <MappingFragment StoreEntitySet="CategoriaSubProducto">
-          <ScalarProperty Name="EstadoCategoriaSP" ColumnName="EstadoCategoriaSP" />
-          <ScalarProperty Name="DescripcionCategoriaSP" ColumnName="DescripcionCategoriaSP" />
-          <ScalarProperty Name="NombreCategoriaSP" ColumnName="NombreCategoriaSP" />
-          <ScalarProperty Name="IdCategoriaSP" ColumnName="IdCategoriaSP" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
